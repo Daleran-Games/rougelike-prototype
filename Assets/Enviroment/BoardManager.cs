@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    /*
     [Serializable]
     public class Count
     {
@@ -30,6 +31,9 @@ public class BoardManager : MonoBehaviour
     public GameObject[] EnemyTiles;
     public GameObject[] WallTiles;
     public GameObject[] OuterWallTiles;
+    */
+
+    public LevelData levelData;
 
     Transform boardHolder;
     List<Vector3> gridPositions = new List<Vector3>();
@@ -38,9 +42,9 @@ public class BoardManager : MonoBehaviour
     {
         gridPositions.Clear();
 
-        for (int x=1; x <Columns-1; x++)
+        for (int x=1; x < levelData.columns-1; x++)
         {
-            for (int y=1; y < Rows-1; y++)
+            for (int y=1; y < levelData.rows -1; y++)
             {
                 gridPositions.Add(new Vector3(x, y, 0f));
             }
@@ -51,14 +55,28 @@ public class BoardManager : MonoBehaviour
     {
         boardHolder = new GameObject("Board").transform;
 
-        for (int x = -1; x < Columns + 1; x++)
+        for (int x = -1; x < levelData.columns + 1; x++)
         {
-            for (int y=-1; y<Rows +1; y++)
+            for (int y=-1; y< levelData.rows +1; y++)
             {
-                GameObject toInstatiate = FloorTiles[Random.Range(0, FloorTiles.Length)];
+                GameObject toInstatiate = levelData.floorTiles[Random.Range(0, levelData.floorTiles.Length)];
 
-                if (x==-1 || x==Columns || y==-1 || y==Rows)
-                    toInstatiate = OuterWallTiles[Random.Range(0, OuterWallTiles.Length)];
+                if (x == -1 && y == -1)
+                    toInstatiate = levelData.swTiles[Random.Range(0, levelData.swTiles.Length)];
+                else if (x == -1 && y != levelData.rows)
+                    toInstatiate = levelData.wTiles[Random.Range(0, levelData.wTiles.Length)];
+                else if (x == -1 && y == levelData.rows)
+                    toInstatiate = levelData.nwTiles[Random.Range(0, levelData.nwTiles.Length)];
+                else if (y == levelData.rows && x != levelData.columns)
+                    toInstatiate = levelData.nTiles[Random.Range(0, levelData.nTiles.Length)];
+                else if (y == levelData.rows && x == levelData.columns)
+                    toInstatiate = levelData.neTiles[Random.Range(0, levelData.neTiles.Length)];
+                else if (x == levelData.columns && y!= -1)
+                    toInstatiate = levelData.eTiles[Random.Range(0, levelData.eTiles.Length)];
+                else if (x == levelData.columns && y == -1)
+                    toInstatiate = levelData.seTiles[Random.Range(0, levelData.seTiles.Length)];
+                else if (x > -1 && x < levelData.columns && y == -1)
+                    toInstatiate = levelData.sTiles[Random.Range(0, levelData.sTiles.Length)];
 
                 GameObject instance = Instantiate(toInstatiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
@@ -89,11 +107,12 @@ public class BoardManager : MonoBehaviour
     {
         BoardSetup();
         InitializeList();
-        LayoutObjectsAtRandom(WallTiles, WallCount.Minimum, WallCount.Maximum);
-        LayoutObjectsAtRandom(FoodTiles, FoodCount.Minimum, FoodCount.Maximum);
+        LayoutObjectsAtRandom(levelData.scrapTiles, levelData.scrapCount.minimum, levelData.scrapCount.maximum);
+        LayoutObjectsAtRandom(levelData.plantTiles, levelData.plantCount.minimum, levelData.plantCount.maximum);
+        LayoutObjectsAtRandom(levelData.energyTiles, levelData.energyCount.minimum, levelData.energyCount.maximum);
         int enemyCount = (int)Mathf.Log(level, 2f);
-        LayoutObjectsAtRandom(EnemyTiles, enemyCount, enemyCount);
-        Instantiate(Exit, new Vector3(Columns - 1, Rows - 1, 0f),Quaternion.identity);
+        LayoutObjectsAtRandom(levelData.enemies, enemyCount, enemyCount);
+        Instantiate(levelData.exitTiles[Random.Range( 0, levelData.exitTiles.Length)], new Vector3(levelData.columns - 1, levelData.rows - 1, 0f),Quaternion.identity);
 
     }
 

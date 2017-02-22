@@ -3,29 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MovingObject {
 
-    public int Damage = 1;
-    public int PointsPerFood = 10;
-    public int PointsPerSoda = 20;
+    public int damage = 1;
     public float RestartLevelDelay = 1f;
+    public Text energyText;
+
+    public AudioClip moveSound1;
+    public AudioClip moveSound2;
+    public AudioClip gameOverSound;
 
 
     Animator playerAnimator;
-    int food;
+    int enrgy;
 
     // Use this for initialization
     protected override void Start ()
     {
         playerAnimator = GetComponent<Animator>();
-        PointsPerFood = GameManager.instance.PlayerFoodPoints;
+        enrgy = GameManager.instance.startingEnergy;
+        energyText.text = "Energy: " + enrgy;
         base.Start();
 	}
 
     private void OnDisable()
     {
-        GameManager.instance.PlayerFoodPoints = food;
+        GameManager.instance.startingEnergy = enrgy;
     }
 
     // Update is called once per frame
@@ -43,15 +48,22 @@ public class Player : MovingObject {
             vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
-            AttemptMove<Wall>(horizontal, vertical);
+            AttemptMove<Destructable>(horizontal, vertical);
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        food--;
+        enrgy--;
+        energyText.text = "Energy: " + enrgy;
+
         base.AttemptMove<T>(xDir, yDir);
 
         RaycastHit2D hit;
+
+        if (Move(xDir,yDir, out hit))
+        {
+            SoundManager.instance.RandomSFX(moveSound1, moveSound2);
+        }
 
         CheckIfGameOver();
 
@@ -65,22 +77,21 @@ public class Player : MovingObject {
             Invoke("Restart", RestartLevelDelay);
             enabled = false;
         }
-        else if (collision.tag == "Food")
+
+        if (collision.gameObject.GetComponent<Collectable>() !=null)
         {
-            food += PointsPerFood;
-            collision.gameObject.SetActive(false);
+            Collectable collect = collision.gameObject.GetComponent<Collectable>();
+            int energyAdded = collect.UseCollectable();
+            enrgy += energyAdded;
+            energyText.text = "Energy: " + enrgy + " +" + energyAdded;
         }
-        else if (collision.tag == "Soda")
-        {
-            food += PointsPerSoda;
-            collision.gameObject.SetActive(false);
-        }
+
     }
 
     protected override void OnCantMove<T>(T component)
     {
-        Wall hitWall = component as Wall;
-        hitWall.DamageWall(Damage);
+        Destructable hitWall = component as Destructable;
+        hitWall.DamageObject(damage);
         playerAnimator.SetTrigger("playerChop");
     }
 
@@ -92,13 +103,19 @@ public class Player : MovingObject {
     public void LoseFood (int loss)
     {
         playerAnimator.SetTrigger("playerHit");
-        food -= loss;
+        enrgy -= loss;
+        energyText.text = "Energy: " + enrgy + " -" + loss;
         CheckIfGameOver();
     }
 
     private void CheckIfGameOver()
     {
-        if (food <= 0)
+        if (enrgy <= 0)
+        {
+            SoundManager.instance.PlaySingle(gameOverSound);
+            SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
+        }
+            
     }
 }

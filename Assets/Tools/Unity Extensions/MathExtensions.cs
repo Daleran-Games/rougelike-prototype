@@ -54,5 +54,14 @@ namespace UnityEngine
 
             return roots;
         }
+
+        public static bool RandomBool ()
+        {
+            if (Random.value >= 0.5f)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
