@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour {
 
-    public float MoveTime = 0.1f;
+    //public float MoveTime = 0.1f;
     public LayerMask BlockingLayer;
 
 
@@ -17,7 +17,7 @@ public abstract class MovingObject : MonoBehaviour {
     {
         boxCollider = gameObject.GetRequiredComponent<BoxCollider2D>();
         objectRB = gameObject.GetRequiredComponent<Rigidbody2D>();
-        inverseMoveTime = 1f / MoveTime;
+        inverseMoveTime = 1f / GameManager.instance.turnDelay;
 	}
 	
     protected bool Move (int xDir, int yDir, out RaycastHit2D hit)
@@ -52,6 +52,8 @@ public abstract class MovingObject : MonoBehaviour {
             OnCantMove(hitComponent);
     }
 
+    protected abstract void OnCantMove<T>(T component) where T : Component;
+
     protected IEnumerator SmoothMovement (Vector3 end)
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
@@ -64,11 +66,5 @@ public abstract class MovingObject : MonoBehaviour {
             yield return null;
         }
     }
-
-    protected abstract void OnCantMove<T>(T component) where T : Component;
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    
 }

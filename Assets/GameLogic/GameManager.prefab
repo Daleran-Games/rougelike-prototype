@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4376078503535508}
   - component: {fileID: 114420428823192512}
   - component: {fileID: 114829765949939714}
+  - component: {fileID: 114684959180978506}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,7 +53,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92950200d65c1ca4abc3299cc06fa782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelData: {fileID: 11400000, guid: 20db1fa690b918640aeae69790ac3ebe, type: 2}
+  mapTemplate: {fileID: 11400000, guid: 20db1fa690b918640aeae69790ac3ebe, type: 2}
+--- !u!114 &114684959180978506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926192435482392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadf48079b149de4aae91e6c87540b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerEnergy: 9999
+  playerCondition: 9999
 --- !u!114 &114829765949939714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,7 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 0}
-  startingEnergy: 250
+  playerSave: {fileID: 0}
+  gameOverSound: {fileID: 8300000, guid: 66bbdacb61619714da884a2eac2cce51, type: 3}
   turnDelay: 0.1
   levelStartDelay: 2
   playersTurn: 1

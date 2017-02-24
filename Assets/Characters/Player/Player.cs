@@ -8,29 +8,54 @@ using UnityEngine.UI;
 public class Player : MovingObject {
 
     public int damage = 1;
-    public float RestartLevelDelay = 1f;
-    public Text energyText;
+    public int attackCost = 2;
+    public int moveCost = 1;
+    public int healAmount = 4;
+    public int healCost = 10;
+    public Color32 hitColor;
+    public Color32 healColor;
+    public Color32 chargeColor;
+    public float flashDuration = 0.2f;
+    public AudioClip[] moveSounds;
+    public AudioClip[] healSounds;
+    public AudioClip[] chargeSounds;
 
-    public AudioClip moveSound1;
-    public AudioClip moveSound2;
-    public AudioClip gameOverSound;
 
 
     Animator playerAnimator;
-    int enrgy;
+    EnergyBehaviour playerEnergy;
+    ConditionBehaviour playerCondition;
+    SpriteRenderer playerRenderer;
+
+    private void Awake()
+    {
+        playerAnimator = gameObject.GetRequiredComponent<Animator>();
+        playerEnergy = gameObject.GetRequiredComponent<EnergyBehaviour>();
+        playerCondition = gameObject.GetRequiredComponent<ConditionBehaviour>();
+        playerRenderer = gameObject.GetRequiredComponent<SpriteRenderer>();
+    }
 
     // Use this for initialization
     protected override void Start ()
     {
-        playerAnimator = GetComponent<Animator>();
-        enrgy = GameManager.instance.startingEnergy;
-        energyText.text = "Energy: " + enrgy;
+        playerEnergy.Energy = GameManager.instance.playerSave.PlayerEnergy;
+        playerCondition.Condition = GameManager.instance.playerSave.PlayerCondition;
+
         base.Start();
 	}
 
+    private void OnEnable()
+    {
+        playerEnergy.EnergyStatChange += OnEnergyChange;
+        playerCondition.ConditionStatChange += OnConditionChange;
+    }
+
     private void OnDisable()
     {
-        GameManager.instance.startingEnergy = enrgy;
+        GameManager.instance.playerSave.PlayerEnergy = playerEnergy.Energy;
+        GameManager.instance.playerSave.PlayerCondition = playerCondition.Condition;
+        playerEnergy.EnergyStatChange -= OnEnergyChange;
+        playerCondition.ConditionStatChange -= OnConditionChange;
     }
 
     // Update is called once per frame
@@ -48,25 +73,45 @@ public class Player : MovingObject {
             vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
-            AttemptMove<Destructable>(horizontal, vertical);
+            AttemptMove<ConditionBehaviour>(horizontal, vertical);
+        else if ((int)Input.GetAxisRaw("Heal") != 0)
+            HealAbility();
+        else if ((int)Input.GetAxisRaw("Skip") != 0)
+            SkipTurn();
+
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        enrgy--;
-        energyText.text = "Energy: " + enrgy;
-
         base.AttemptMove<T>(xDir, yDir);
 
         RaycastHit2D hit;
 
         if (Move(xDir,yDir, out hit))
         {
-            SoundManager.instance.RandomSFX(moveSound1, moveSound2);
+            SoundManager.instance.RandomSFX(moveSounds);
+            playerEnergy.Energy -= moveCost;
         }
 
-        CheckIfGameOver();
+        GameManager.instance.playersTurn = false;
+    }
 
+    void HealAbility()
+    {
+        if (playerEnergy.Energy > healCost && playerCondition.Condition < playerCondition.MaxCondition)
+        {
+            playerEnergy.Energy -= healCost;
+            playerCondition.Condition += healAmount;
+            SoundManager.instance.RandomSFX(healSounds);
+            Debug.Log("Flashing Heal Color");
+            StartCoroutine(FlashColor(healColor));
+            GameManager.instance.playersTurn = false;
+        }
+
+    }
+
+    void SkipTurn()
+    {
         GameManager.instance.playersTurn = false;
     }
 
@@ -74,7 +119,7 @@ public class Player : MovingObject {
     {
         if (collision.tag == "Exit")
         {
-            Invoke("Restart", RestartLevelDelay);
+            Restart();
             enabled = false;
         }
 
@@ -82,16 +127,19 @@ public class Player : MovingObject {
         {
             Collectable collect = collision.gameObject.GetComponent<Collectable>();
             int energyAdded = collect.UseCollectable();
-            enrgy += energyAdded;
-            energyText.text = "Energy: " + enrgy + " +" + energyAdded;
+            Debug.Log("Flashing Charge Color");
+            StartCoroutine(FlashColor(chargeColor));
+            SoundManager.instance.RandomSFX(chargeSounds);
+            playerEnergy.Energy += energyAdded;
         }
 
     }
 
     protected override void OnCantMove<T>(T component)
     {
-        Destructable hitWall = component as Destructable;
-        hitWall.DamageObject(damage);
+        ConditionBehaviour hitObject = component as ConditionBehaviour;
+        hitObject.Condition -= damage;
+        playerEnergy.Energy -= attackCost;
         playerAnimator.SetTrigger("playerChop");
     }
 
@@ -100,22 +148,47 @@ public class Player : MovingObject {
         SceneManager.LoadScene(0);
     }
 
-    public void LoseFood (int loss)
+    public void OnEnergyChange (int change, bool increase)
     {
-        playerAnimator.SetTrigger("playerHit");
-        enrgy -= loss;
-        energyText.text = "Energy: " + enrgy + " -" + loss;
-        CheckIfGameOver();
+        if (increase)
+        {
+
+        }  
+        else
+            CheckIfGameOver();
+    }
+
+    public void OnConditionChange (int change, bool increase)
+    {
+        if (increase)
+        {
+
+        }
+        else
+        {
+            playerAnimator.SetTrigger("playerHit");
+            StartCoroutine(FlashColor(hitColor));
+            CheckIfGameOver();
+        }
+
     }
 
     private void CheckIfGameOver()
     {
-        if (enrgy <= 0)
+        if (playerEnergy.Energy <= 0 || playerCondition.Condition <= 0)
         {
-            SoundManager.instance.PlaySingle(gameOverSound);
+            SoundManager.instance.PlaySingle(GameManager.instance.gameOverSound);
             SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
         }
-            
+
     }
+
+    IEnumerator FlashColor(Color32 color)
+    {
+        playerRenderer.color = color;
+        yield return new WaitForSeconds(flashDuration);
+        playerRenderer.color = Color.white;
+    }
+
 }

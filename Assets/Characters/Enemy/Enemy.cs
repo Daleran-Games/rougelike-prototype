@@ -5,31 +5,56 @@ using UnityEngine;
 
 public class Enemy : MovingObject {
 
-    public int Damage;
-    public AudioClip enemyAttack1;
-    public AudioClip enemyAttack2;
+    public int damage = 1;
+    public Sprite deadSprite;
+    public Color32 deadColor;
+    public Color32 hitColor;
+    public float flashDuration = 0.2f;
+    public AudioClip[] enemyAttacks;
+    public AudioClip[] enemyHits;
 
     Animator enemyAnimator;
     Transform target;
+    Collider2D enemyCollider;
+    SpriteRenderer enemyRenderer;
     bool skipMove;
+
+    ConditionBehaviour enemyCondition;
+
+    private void Awake()
+    {
+        enemyAnimator = gameObject.GetRequiredComponent<Animator>();
+        enemyCondition = gameObject.GetRequiredComponent<ConditionBehaviour>();
+        enemyCollider = gameObject.GetRequiredComponent<Collider2D>();
+        enemyRenderer = gameObject.GetRequiredComponent<SpriteRenderer>();
+    }
 
     protected override void Start ()
     {
         GameManager.instance.AddEnemyToList(this);
-        enemyAnimator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
 	}
 
+    private void OnEnable()
+    {
+        enemyCondition.ConditionStatChange += OnTakeDamage;
+    }
+
+    private void OnDisable()
+    {
+        enemyCondition.ConditionStatChange -= OnTakeDamage;
+    }
+
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-
+        
         if (skipMove)
         {
             skipMove = false;
             return; 
         }
-
+        
         base.AttemptMove<T>(xDir, yDir);
         skipMove = true;
     }
@@ -48,19 +73,50 @@ public class Enemy : MovingObject {
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
 
-        AttemptMove<Player>(xDir, yDir);
+        AttemptMove<ConditionBehaviour>(xDir, yDir);
 
     }
 
     protected override void OnCantMove<T>(T component)
     {
-        Player hitPlayer = component as Player;
+        ConditionBehaviour hitObject = component as ConditionBehaviour;
 
-        enemyAnimator.SetTrigger("enemyAttack");
+        enemyAnimator.SetTrigger("wilderbotAttack");
 
-        SoundManager.instance.RandomSFX(enemyAttack1, enemyAttack2);
+        SoundManager.instance.RandomSFX(enemyAttacks);
 
-        hitPlayer.LoseFood(Damage);
+        if (hitObject.tag != "Enemy")
+            hitObject.Condition -= damage;
+    }
+
+    public void OnTakeDamage (int amount, bool increase)
+    {
+        enemyAnimator.SetTrigger("wilderbotHit");
+        SoundManager.instance.RandomSFX(enemyHits);
+        StartCoroutine(FlashColor(hitColor));
+
+        if (enemyCondition.Condition <= 0)
+        {
+            GameManager.instance.RemoveEnemyFromList(this);
+            enemyAnimator.enabled = false;
+            enemyRenderer.sprite = deadSprite;
+            StartCoroutine(SwitchToColor(deadColor));
+            enemyCollider.enabled = false;
+            enabled = false;
+        }
+    }
+
+    IEnumerator FlashColor (Color32 color)
+    {
+        enemyRenderer.color = color;
+        yield return new WaitForSeconds(flashDuration);
+        enemyRenderer.color = Color.white;
+    }
+
+    IEnumerator SwitchToColor (Color32 color)
+    {
+        yield return new WaitForSeconds(flashDuration);
+        enemyRenderer.color = color;
     }
 
 }
