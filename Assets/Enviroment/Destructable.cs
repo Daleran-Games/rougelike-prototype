@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,6 @@ public class Destructable : MonoBehaviour {
 
     public Sprite damagedSprite;
     public Sprite destroyedSprite;
-    public int hitpoints = 4;
     public AudioClip[] damageSounds;
 
     /*
@@ -17,24 +16,39 @@ public class Destructable : MonoBehaviour {
 
     SpriteRenderer destructibleRenderer;
     Collider2D destructibleCollider;
+    ConditionBehaviour condition;
 
     // Use this for initialization
     void Awake()
     {
-        destructibleRenderer = GetComponent<SpriteRenderer>();
-        destructibleCollider = GetComponent<Collider2D>();
+        destructibleRenderer = gameObject.GetRequiredComponent<SpriteRenderer>();
+        destructibleCollider = gameObject.GetRequiredComponent<Collider2D>();
+        condition = gameObject.GetRequiredComponent<ConditionBehaviour>();
     }
 
-    public void DamageObject(int loss)
+    private void OnEnable()
+    {
+        condition.ConditionStatChange += OnTakeDamage;
+    }
+
+    private void OnDisable()
+    {
+        condition.ConditionStatChange -= OnTakeDamage;
+    }
+
+    void OnTakeDamage(int newValue, bool increase)
     {
         SoundManager.instance.RandomSFX(damageSounds);
-        destructibleRenderer.sprite = damagedSprite;
-        hitpoints -= loss;
-        if (hitpoints <= 0)
+        if (condition.Condition < condition.MaxCondition)
+        {
+            destructibleRenderer.sprite = damagedSprite;
+        }
+        if (condition.Condition <= 0)
         {
             destructibleRenderer.sprite = destroyedSprite;
             destructibleCollider.enabled = false;
             enabled = false;
         }
     }
+
 }

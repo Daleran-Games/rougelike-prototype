@@ -10,19 +10,33 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
     public BoardManager gameBoard;
-    public int startingEnergy = 100;
+    public PlayerSave playerSave;
+    public AudioClip gameOverSound;
     public float turnDelay = 0.1f;
     public float levelStartDelay = 2f;
+
     [HideInInspector]
     public bool playersTurn = true;
 
+    UIManager ui;
+    int zone = 0;
+    public int Zone
+    {
+        get { return zone; }
+        private set { zone = value; }
+    }
 
-    Text levelText;
-    GameObject levelImage;
-    int level = 0;
-    List<Enemy> enemies;
+            bool first = true;
     bool enemiesMoving;
     bool doingSetup = true;
+    List<Enemy> enemies;
+    public List<Enemy> Enemies
+    {
+        get { return enemies; }
+        private set { enemies = value; }
+    }
+
+
 
 	// Use this for initialization
 	void Awake ()
@@ -36,11 +50,13 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         enemies = new List<Enemy>();
         gameBoard = gameObject.GetRequiredComponent<BoardManager>();
+        playerSave = gameObject.GetRequiredComponent<PlayerSave>();
+
 	}
 
     void OnLevelFinishedLoading (Scene scene, LoadSceneMode mode)
     {
-        level++;
+        Zone++;
         InitGame();
     }
 
@@ -57,26 +73,25 @@ public class GameManager : MonoBehaviour {
     private void InitGame()
     {
         doingSetup = true;
-        levelImage = GameObject.Find("LevelImage");
-        levelText = GameObject.Find("LevelText").GetRequiredComponent<Text>();
-        levelText.text = "Day " + level;
-        levelImage.SetActive(true);
-        Invoke("HideLevelImage", levelStartDelay);
+        ui = GameObject.Find("UICanvas").GetRequiredComponent<UIManager>();
+
+        ui.SetUpUI();
+
+        Invoke("OnFinishedLevelSetup", levelStartDelay);
 
         enemies.Clear();
-        gameBoard.SetupScene(level);
+        gameBoard.SetupScene(Zone);
     }
 
-    void HideLevelImage()
+    void OnFinishedLevelSetup()
     {
-        levelImage.SetActive(false);
+        ui.HideLevelScreen();
         doingSetup = false;
     }
 
     public void GameOver()
     {
-        levelText.text = "After " + level + " days, you starved.";
-        levelImage.SetActive(true);
+        ui.ShowGameOverScreen();
         enabled = false;
     }
 
@@ -96,6 +111,11 @@ public class GameManager : MonoBehaviour {
         enemies.Add(script);
     }
 
+    public void RemoveEnemyFromList (Enemy script)
+    {
+        enemies.Remove(script);
+    }
+
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
@@ -108,7 +128,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i <enemies.Count; i++)
         {
             enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(enemies[i].MoveTime);
+            yield return new WaitForSeconds(turnDelay);
         }
 
         playersTurn = true;

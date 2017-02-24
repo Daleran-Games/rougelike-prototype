@@ -11,60 +11,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2578e1db3cd08944c9e27e8907bb9091, type: 3}
   m_Name: PurpleMarsh
   m_EditorClassIdentifier: 
-  columns: 16
-  rows: 16
-  scrapCount:
-    minimum: 4
-    maximum: 8
+  NumberOfCoulmns:
+    x: 8
+    y: 12
+  NumberOfRows:
+    x: 8
+    y: 12
+  backgroundBase: {fileID: 1444125792392704, guid: 1a0c691c7ec8fc54998ece9c8324ff3a,
+    type: 2}
+  backgroundColor:
+    serializedVersion: 2
+    rgba: 4289099094
+  backgroundDetails:
+  - {fileID: 1444125792392704, guid: b81efed2eb9722d47805083ce8bf29c6, type: 2}
+  - {fileID: 1444125792392704, guid: aa0485d358b1154429a96ee4bba0fa7d, type: 2}
+  - {fileID: 1444125792392704, guid: eb632bdbfc55e2b43a1c43bec124b73d, type: 2}
+  backgroundDetailChance: 0.346
+  structureTiles:
+  - {fileID: 1562180221684754, guid: 7198f4ea280839442b5520046eb9387d, type: 2}
+  - {fileID: 1694894323926288, guid: be0235446f761144b914d0de652c9302, type: 2}
+  - {fileID: 1858494148933370, guid: 48a2b155bf05b834884480b9e55a2f9b, type: 2}
+  structureCount:
+    x: 2
+    y: 4
+  plantTiles:
+  - {fileID: 1207152768285870, guid: c71787216c367d042a752c213feb4003, type: 2}
+  - {fileID: 1165716301244482, guid: 644a5ac5e0e855e4b83ef78275c57845, type: 2}
+  - {fileID: 1017421014092008, guid: 0077c91826499424aa6188eba039e60c, type: 2}
   plantCount:
-    minimum: 7
-    maximum: 14
+    x: 6
+    y: 14
+  energyTiles:
+  - {fileID: 1259654238008514, guid: 3359d4b355a9d0c4bb9eb10ac73c7c9f, type: 2}
+  - {fileID: 1839147810888106, guid: 18d455fa344efb64f873748e52f8b459, type: 2}
+  - {fileID: 1839147810888106, guid: 05203217a0bf78642b378c0f4917b42c, type: 2}
   energyCount:
-    minimum: 2
-    maximum: 7
-  backgroundTiles:
-  - {fileID: 1444125792392704, guid: 1a0c691c7ec8fc54998ece9c8324ff3a, type: 2}
-  nwTiles:
-  - {fileID: 1408329338993772, guid: 6da5b139a598e1649973829d55a37144, type: 2}
-  nTiles:
-  - {fileID: 1667750583237560, guid: d02051335a3621546bc0c938dd54b9c4, type: 2}
-  - {fileID: 1859765953493046, guid: 6864ce5c8badd9442b1e23c7e9a50fdd, type: 2}
-  - {fileID: 1964061848144520, guid: f79b8cc87d8882442be5986f1b4b5d05, type: 2}
-  neTiles:
-  - {fileID: 1238206985556896, guid: 14aab082a152df442be6db6c1cead3b0, type: 2}
-  eTiles:
-  - {fileID: 1471364568924538, guid: f93a6e3960cd62343a7dafab65b87d7d, type: 2}
-  - {fileID: 1404271809870864, guid: 1c2f33584d2bcc943b9a431aed129056, type: 2}
-  - {fileID: 1016829309950180, guid: 74106919fda861c4e8e90bf78f73bf8d, type: 2}
-  seTiles:
-  - {fileID: 1596250970294786, guid: 8946feda9b240be42bc8c011f45227d2, type: 2}
-  sTiles:
-  - {fileID: 1840347123288884, guid: 9dc2d26b6e7458b4b955feff59cbdc7d, type: 2}
-  - {fileID: 1720990099169834, guid: f7da3bac38a225c41bc783610fd4e3ea, type: 2}
-  - {fileID: 1709035328867416, guid: dad0b7269163c174f8d62c634ee8480d, type: 2}
-  swTiles:
-  - {fileID: 1835992167435020, guid: 2b9894db8fe01614e874cfea06af7b33, type: 2}
-  wTiles:
-  - {fileID: 1915608775170164, guid: 72bc83a1d0ebc6f4b8df56dacb5316ed, type: 2}
-  - {fileID: 1329687852281832, guid: 48b696faa7e5f5b48a3fb45dd4f3c52f, type: 2}
-  - {fileID: 1637865426299010, guid: 308fc2e077dc93a40869dd1e2406abd5, type: 2}
-  floorTiles:
-  - {fileID: 1250939541240196, guid: dd56856f51b6b424daacc82ed2039845, type: 2}
+    x: 1
+    y: 3
+  enemies:
+  - {fileID: 1818181683064284, guid: 372bdd19c2cf6c44b832e786c8bcc4f0, type: 2}
+  - {fileID: 1608498464857502, guid: 6dea6cc7464cffe4e8e6373cccec4777, type: 2}
+  primaryBase: {fileID: 1250939541240196, guid: dd56856f51b6b424daacc82ed2039845,
+    type: 2}
+  primaryDetails:
+  - {fileID: 1807460733445106, guid: f13c38b03832c2347bcbecf8f2223ed2, type: 2}
   - {fileID: 1479137521009050, guid: 319319211d0032a46bbaa113c3b1dc7e, type: 2}
   - {fileID: 1677797756238546, guid: e24663fb20bc0d5499aa7f3b1f8df3f5, type: 2}
   - {fileID: 1514256221899982, guid: 527274956b5288043a3f7803ced4086a, type: 2}
   - {fileID: 1262957024604902, guid: b2e115d235c5ae4448ba783a5920b582, type: 2}
   - {fileID: 1420455249774706, guid: 07bb9433367061549a8e9012c73df8f2, type: 2}
   - {fileID: 1005531893092402, guid: 3bddbcf03b25d844697788f756db2fa8, type: 2}
-  - {fileID: 1525775966079730, guid: a8480e1819772a845b5348cc640566eb, type: 2}
-  - {fileID: 1275059327819858, guid: 70bfd8e74ae2a384aae324b10175ad71, type: 2}
-  - {fileID: 1791644807147948, guid: 07a7e7dec1f29004b9f3139a4183017a, type: 2}
-  - {fileID: 1156155025555792, guid: f6618392adb789e4391df0cadf07012b, type: 2}
-  - {fileID: 1807460733445106, guid: 5fabf294c7856084eae23a213647b816, type: 2}
-  exitTiles:
-  - {fileID: 1231350576619162, guid: ea9cd74a496732242968022f7ef2808e, type: 2}
-  - {fileID: 1095508933409814, guid: 5c35c78988ecbe94e84a7af01ba1081a, type: 2}
-  roadTiles:
+  primaryDetailChance: 0.316
+  nwPrimaryTiles:
+  - {fileID: 1408329338993772, guid: 6da5b139a598e1649973829d55a37144, type: 2}
+  nPrimaryTiles:
+  - {fileID: 1667750583237560, guid: d02051335a3621546bc0c938dd54b9c4, type: 2}
+  - {fileID: 1859765953493046, guid: 6864ce5c8badd9442b1e23c7e9a50fdd, type: 2}
+  - {fileID: 1964061848144520, guid: f79b8cc87d8882442be5986f1b4b5d05, type: 2}
+  nePrimaryTiles:
+  - {fileID: 1238206985556896, guid: 14aab082a152df442be6db6c1cead3b0, type: 2}
+  wPrimaryTiles:
+  - {fileID: 1915608775170164, guid: 72bc83a1d0ebc6f4b8df56dacb5316ed, type: 2}
+  - {fileID: 1329687852281832, guid: 48b696faa7e5f5b48a3fb45dd4f3c52f, type: 2}
+  - {fileID: 1637865426299010, guid: 308fc2e077dc93a40869dd1e2406abd5, type: 2}
+  ePrimaryTiles:
+  - {fileID: 1471364568924538, guid: f93a6e3960cd62343a7dafab65b87d7d, type: 2}
+  - {fileID: 1404271809870864, guid: 1c2f33584d2bcc943b9a431aed129056, type: 2}
+  - {fileID: 1016829309950180, guid: 74106919fda861c4e8e90bf78f73bf8d, type: 2}
+  swPrimaryTiles:
+  - {fileID: 1835992167435020, guid: 2b9894db8fe01614e874cfea06af7b33, type: 2}
+  sPrimaryTiles:
+  - {fileID: 1840347123288884, guid: 9dc2d26b6e7458b4b955feff59cbdc7d, type: 2}
+  - {fileID: 1720990099169834, guid: f7da3bac38a225c41bc783610fd4e3ea, type: 2}
+  - {fileID: 1709035328867416, guid: dad0b7269163c174f8d62c634ee8480d, type: 2}
+  sePrimaryTiles:
+  - {fileID: 1596250970294786, guid: 8946feda9b240be42bc8c011f45227d2, type: 2}
+  secondaryBase: {fileID: 0}
+  secondaryDetails: []
+  secondaryDetailChance: 0.25
+  nwSecondaryTiles: []
+  nSecondaryTiles: []
+  neSecondaryTiles: []
+  wSecondaryTiles: []
+  eSecondaryTiles: []
+  swSecondaryTiles: []
+  sSecondaryTiles: []
+  seSecondaryTiles: []
+  northBridge: {fileID: 1095508933409814, guid: 5c35c78988ecbe94e84a7af01ba1081a,
+    type: 2}
+  southBridge: {fileID: 1231350576619162, guid: ea9cd74a496732242968022f7ef2808e,
+    type: 2}
+  bridgeBase: {fileID: 1016829309950180, guid: ef8710e7543f24d4bacae5b6289ba748, type: 2}
+  bridgeLength: 6
+  roadBase: {fileID: 1642718319453518, guid: 27edb2ae5f8cc4248970cfae98ffd0c9, type: 2}
+  roadDetails:
   - {fileID: 1642718319453518, guid: 0f04eee13535e564fb98f17e0a806972, type: 2}
   - {fileID: 1515583606964396, guid: ac158a64ef3b87740b7e1491b91e75e3, type: 2}
   - {fileID: 1182726007703454, guid: 917c17a3301791e47b5f51119faf0deb, type: 2}
@@ -72,19 +112,4 @@ MonoBehaviour:
   - {fileID: 1143512489283116, guid: 2a9ffddd29b87f941a9f2669e04fb36b, type: 2}
   - {fileID: 1179810648159294, guid: c1dd6f9deae277a4887235aebe49ee6a, type: 2}
   - {fileID: 1043210102401478, guid: 844ee055c7f43634684e41c5d4324f0e, type: 2}
-  - {fileID: 1323409746770252, guid: 5051dd11451b85c48950f00bc10500b1, type: 2}
-  scrapTiles:
-  - {fileID: 1562180221684754, guid: 7198f4ea280839442b5520046eb9387d, type: 2}
-  - {fileID: 1694894323926288, guid: be0235446f761144b914d0de652c9302, type: 2}
-  - {fileID: 1858494148933370, guid: 48a2b155bf05b834884480b9e55a2f9b, type: 2}
-  plantTiles:
-  - {fileID: 1207152768285870, guid: c71787216c367d042a752c213feb4003, type: 2}
-  - {fileID: 1165716301244482, guid: 644a5ac5e0e855e4b83ef78275c57845, type: 2}
-  - {fileID: 1017421014092008, guid: 0077c91826499424aa6188eba039e60c, type: 2}
-  energyTiles:
-  - {fileID: 1259654238008514, guid: 3359d4b355a9d0c4bb9eb10ac73c7c9f, type: 2}
-  - {fileID: 1839147810888106, guid: 18d455fa344efb64f873748e52f8b459, type: 2}
-  - {fileID: 1839147810888106, guid: 05203217a0bf78642b378c0f4917b42c, type: 2}
-  enemies:
-  - {fileID: 1239478988644224, guid: cc9eefb49cf0b4e4fbf316177b76b3ca, type: 2}
-  - {fileID: 1455935923958722, guid: 7d0b5a2cc243ec04797e473411c3ea99, type: 2}
+  roadDetailChance: 0.791

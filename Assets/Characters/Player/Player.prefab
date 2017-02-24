@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 50225041016172798}
   - component: {fileID: 61025751256143906}
   - component: {fileID: 114717997829964866}
+  - component: {fileID: 114853707305377130}
+  - component: {fileID: 114601880713499386}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -95,6 +97,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114601880713499386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403279361124234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a08ebcc45b25047960d8f1b1c29a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 8
+  maxCondition: 8
 --- !u!114 &114717997829964866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,16 +121,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4dd31c1ed37d1469d0b3ee3ef1b575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveTime: 0.1
   BlockingLayer:
     serializedVersion: 2
     m_Bits: 256
   damage: 1
-  RestartLevelDelay: 1
-  energyText: {fileID: 0}
-  moveSound1: {fileID: 8300000, guid: 820e19462a1dca142a4bd6a7a763dc95, type: 3}
-  moveSound2: {fileID: 8300000, guid: 1ca59637b3be45e4898e9541fc15719c, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 66bbdacb61619714da884a2eac2cce51, type: 3}
+  attackCost: 2
+  moveCost: 1
+  healAmount: 4
+  healCost: 10
+  hitColor:
+    serializedVersion: 2
+    rgba: 4282861546
+  healColor:
+    serializedVersion: 2
+    rgba: 4278255400
+  chargeColor:
+    serializedVersion: 2
+    rgba: 4294964224
+  flashDuration: 0.2
+  moveSounds:
+  - {fileID: 8300000, guid: aa8c84aca75105940bc1eab145d07168, type: 3}
+  healSounds:
+  - {fileID: 8300000, guid: 1b78e0c548c61684998565ca4251a670, type: 3}
+  - {fileID: 8300000, guid: 71e411f807eee7741b82603ceab0edf7, type: 3}
+  chargeSounds:
+  - {fileID: 8300000, guid: 250bec84b95808042a614af2ba9a6914, type: 3}
+--- !u!114 &114853707305377130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403279361124234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09e2189c9261714c8273b5aec0028fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energy: 100
+  maxEnergy: 100
 --- !u!212 &212704982875193148
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -147,7 +190,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -900995045
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fbe1e7b94bb1a4a099d5bcb15a00141c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3432eb573be531247ab3e405bfd42f0f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

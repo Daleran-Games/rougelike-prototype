@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 20f7e2a140bc34247be9b57942e0a61f
+timeCreated: 1487857868
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kenney High Square
+  fontNames:
+  - Kenney High Square
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
