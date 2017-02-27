@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour {
         private set { zone = value; }
     }
 
-            bool first = true;
     bool enemiesMoving;
     bool doingSetup = true;
     List<Enemy> enemies;
@@ -73,9 +72,13 @@ public class GameManager : MonoBehaviour {
     private void InitGame()
     {
         doingSetup = true;
+
         ui = GameObject.Find("UICanvas").GetRequiredComponent<UIManager>();
 
         ui.SetUpUI();
+
+        if (Zone > 1)
+            SetTutorialState(false);
 
         Invoke("OnFinishedLevelSetup", levelStartDelay);
 
@@ -105,6 +108,11 @@ public class GameManager : MonoBehaviour {
 
         StartCoroutine(MoveEnemies());
 	}
+
+    public void SetTutorialState (bool state)
+    {
+        ui.SetTutorialScreen(state);
+    }
 
     public void AddEnemyToList(Enemy script)
     {

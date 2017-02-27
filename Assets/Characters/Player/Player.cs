@@ -21,7 +21,8 @@ public class Player : MovingObject {
     public AudioClip[] chargeSounds;
 
 
-
+    bool tutorialState = true;
+    bool tutorialKeyInUse = false;
     Animator playerAnimator;
     EnergyBehaviour playerEnergy;
     ConditionBehaviour playerCondition;
@@ -40,6 +41,9 @@ public class Player : MovingObject {
     {
         playerEnergy.Energy = GameManager.instance.playerSave.PlayerEnergy;
         playerCondition.Condition = GameManager.instance.playerSave.PlayerCondition;
+
+        if (GameManager.instance.Zone > 1)
+            tutorialState = false;
 
         base.Start();
 	}
@@ -72,6 +76,8 @@ public class Player : MovingObject {
         if (horizontal != 0)
             vertical = 0;
 
+        SetTutorialKeyState();
+
         if (horizontal != 0 || vertical != 0)
             AttemptMove<ConditionBehaviour>(horizontal, vertical);
         else if ((int)Input.GetAxisRaw("Heal") != 0)
@@ -79,7 +85,31 @@ public class Player : MovingObject {
         else if ((int)Input.GetAxisRaw("Skip") != 0)
             SkipTurn();
 
+
+        if (tutorialState == true)
+            GameManager.instance.SetTutorialState(true);
+        else
+            GameManager.instance.SetTutorialState(false);
+
     }
+
+    void SetTutorialKeyState()
+    {
+        if (Input.GetAxisRaw("Help") != 0)
+        {
+            if (tutorialKeyInUse == false)
+            {
+                tutorialState = !tutorialState;
+
+                tutorialKeyInUse = true;
+            }
+        }
+        if (Input.GetAxisRaw("Help") == 0)
+        {
+            tutorialKeyInUse = false;
+        }
+    }
+
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {

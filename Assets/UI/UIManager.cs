@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour {
 
     public Text levelText;
     public GameObject levelImage;
+    public GameObject tutorialImage;
 
 
 
@@ -33,12 +34,20 @@ public class UIManager : MonoBehaviour {
         levelText = GameObject.Find("LevelText").GetRequiredComponent<Text>();
         levelText.text = "System Loading: Zone " + GameManager.instance.Zone + Environment.NewLine + Environment.NewLine + "*  Initiating sensors: 0028:C0034B23" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Load success. Standby for initialization _";
         levelImage.SetActive(true);
+        tutorialImage = GameObject.Find("TutorialImage");
+
     }
 
     public void HideLevelScreen()
     {
         levelImage.SetActive(false);
     }
+
+    public void SetTutorialScreen(bool state)
+    {
+        tutorialImage.SetActive(state);
+    }
+
 
     public void ShowGameOverScreen()
     {
