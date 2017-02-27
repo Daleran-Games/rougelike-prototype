@@ -91,6 +91,9 @@ public class Player : MovingObject {
         else
             GameManager.instance.SetTutorialState(false);
 
+        if (Input.GetAxisRaw("Cancel") !=0)
+            Application.Quit();
+
     }
 
     void SetTutorialKeyState()

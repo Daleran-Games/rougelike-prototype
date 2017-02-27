@@ -10,8 +10,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: 2DRoguelike
+  companyName: DaleranGame
+  productName: Rougelike Prototype
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
@@ -64,7 +64,7 @@ PlayerSettings:
   useOSAutorotation: 1
   use32BitDisplayBuffer: 1
   disableDepthAndStencilBuffers: 0
-  defaultIsFullScreen: 1
+  defaultIsFullScreen: 0
   defaultIsNativeResolution: 1
   runInBackground: 1
   captureSingleScreen: 0
@@ -525,9 +525,9 @@ PlayerSettings:
     Game_Performance: 0
     Hub: 0
     Purchasing: 0
-    UNet: 0
+    UNet: 1
     Unity_Ads: 0
-  cloudProjectId: c4760b7b-71d3-4f36-8214-ff8d1a5dfcd6
-  projectName: 2D Roguelike
-  organizationId: will-goldstone
+  cloudProjectId: 93a33e9d-fa48-4b49-812d-eccf3342a1d5
+  projectName: Rougelike Prototype
+  organizationId: daleran-games
   cloudEnabled: 0
