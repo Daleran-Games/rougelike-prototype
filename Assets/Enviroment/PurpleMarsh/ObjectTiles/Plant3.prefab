@@ -84,8 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a08ebcc45b25047960d8f1b1c29a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  condition: 3
-  maxCondition: 3
+  condition: 2
+  maxCondition: 2
 --- !u!212 &212704573601318042
 SpriteRenderer:
   m_ObjectHideFlags: 1

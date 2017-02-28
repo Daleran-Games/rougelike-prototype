@@ -8,12 +8,6 @@ public class Destructable : MonoBehaviour {
     public Sprite destroyedSprite;
     public AudioClip[] damageSounds;
 
-    /*
-    public ItemType loot;
-    public int minLootAmount;
-    public int maxLootAmount;
-    */
-
     SpriteRenderer destructibleRenderer;
     Collider2D destructibleCollider;
     ConditionBehaviour condition;

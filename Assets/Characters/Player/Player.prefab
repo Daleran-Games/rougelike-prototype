@@ -29,7 +29,7 @@ GameObject:
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -56,10 +56,10 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
+  m_UseAutoMass: 1
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -77,9 +77,9 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.2}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.25
 --- !u!95 &95163528478275474
 Animator:
   serializedVersion: 3
@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a08ebcc45b25047960d8f1b1c29a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  condition: 8
-  maxCondition: 8
+  condition: 4
+  maxCondition: 4
 --- !u!114 &114717997829964866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,11 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4dd31c1ed37d1469d0b3ee3ef1b575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 5
   damage: 1
   attackTime: 0.5
   repairTime: 2
   attackCost: 2
+  attackRange: 1
+  attackForce: 15
   moveCost: 1
   healAmount: 4
   healCost: 10
@@ -157,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09e2189c9261714c8273b5aec0028fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: 100
-  maxEnergy: 100
+  energy: 50
+  maxEnergy: 50
 --- !u!212 &212704982875193148
 SpriteRenderer:
   m_ObjectHideFlags: 1

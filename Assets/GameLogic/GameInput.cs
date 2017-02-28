@@ -50,6 +50,7 @@ public class GameInput : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+
     // Use this for initialization
     void Update()
     {
@@ -59,6 +60,7 @@ public class GameInput : MonoBehaviour {
 
         if (quitKey.IsPressedOnce() && QuitEvent != null)
             QuitEvent();
+       
 
     }
 

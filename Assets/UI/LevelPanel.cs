@@ -57,7 +57,7 @@ public class LevelPanel : MonoBehaviour {
     public void OnGameOver (GameState newState)
     {
         gameObject.SetActive(true);
-        levelText.text = "A fatal exception has occurred at zone " + save.SavedZone + ". The current application will be terminated." + Environment.NewLine + Environment.NewLine + "*  Unable to load kernal." + Environment.NewLine + "*  Hardware fault located at 0031:D0014F09" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Press ESC to continue or F1 to terminate _";
+        levelText.text = "A fatal exception has occurred at zone " + save.SavedZone + ". The current application will be terminated." + Environment.NewLine + Environment.NewLine + "*  Unable to load kernal." + Environment.NewLine + "*  Hardware fault located at 0031:D0014F09" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Press Space to continue or ESC to terminate _";
     }
 
 

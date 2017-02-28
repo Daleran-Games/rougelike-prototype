@@ -439,6 +439,8 @@ MonoBehaviour:
     type: 2}
   soundManager: {fileID: 1632688990601620, guid: 90adbf53748141b4889307d1cbf3bf8a,
     type: 2}
+  inputManager: {fileID: 1851315814325332, guid: 37a53b2aedb5c3f4893a1f9e27d2564b,
+    type: 2}
 --- !u!114 &451927761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,21 +668,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 58055805808936634, guid: 7bdaba4cfd4daf14687a816821b7d304,
+    - target: {fileID: 50225041016172798, guid: 7bdaba4cfd4daf14687a816821b7d304,
         type: 2}
-      propertyPath: m_Radius
-      value: 0.28
+      propertyPath: m_Mass
+      value: 0.19634955
       objectReference: {fileID: 0}
-    - target: {fileID: 58055805808936634, guid: 7bdaba4cfd4daf14687a816821b7d304,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403279361124234, guid: 7bdaba4cfd4daf14687a816821b7d304, type: 2}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
-        type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bdaba4cfd4daf14687a816821b7d304, type: 2}
   m_IsPrefabParent: 0

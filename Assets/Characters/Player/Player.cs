@@ -14,6 +14,8 @@ public class Player : MovingObject {
     public float repairTime = 2f;
 
     public float attackCost = 2f;
+    public float attackRange = 0.5f;
+    public float attackForce = 15f;
     public float moveCost = 1f;
     public int healAmount = 4;
     public float healCost = 10f;
@@ -119,6 +121,19 @@ public class Player : MovingObject {
         playerAnimator.SetTrigger("playerChop");
         playerEnergy.Energy -= attackCost;
         ActionTimer += attackTime;
+
+        objCollider.enabled = false;
+
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) , attackRange);
+
+        if (hit.rigidbody != null)
+            hit.rigidbody.AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized * attackForce);
+
+        if (hit.transform.gameObject.GetComponent<ConditionBehaviour>() != null)
+                hit.transform.gameObject.GetComponent<ConditionBehaviour>().Condition -= damage;
+
+        objCollider.enabled = true;
+
     }
 
     void RepairAbility()

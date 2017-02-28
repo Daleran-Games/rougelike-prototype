@@ -11,14 +11,20 @@ public class GameLoader : MonoBehaviour
     [SerializeField]
     GameObject soundManager;
 
-	// Use this for initialization
-	void Awake ()
+    [SerializeField]
+    GameObject inputManager;
+
+    // Use this for initialization
+    void Awake ()
     {
         if (GameManager.Instance == null)
             Instantiate(gameManager);
 
         if (SoundManager.Instance == null)
             Instantiate(soundManager);
+
+        if (GameInput.Instance == null)
+            Instantiate(inputManager);
 	}
 
 }

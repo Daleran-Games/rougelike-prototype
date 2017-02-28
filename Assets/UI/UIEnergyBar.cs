@@ -25,7 +25,7 @@ public class UIEnergyBar : MonoBehaviour {
         energyBarSlider.minValue = 0;
         energyBarSlider.maxValue = playerEnergy.MaxEnergy;
 
-        energyBarText.text = playerEnergy.Energy + "/" + playerEnergy.MaxEnergy;
+        energyBarText.text = Mathf.Round(playerEnergy.Energy) + "/" + Mathf.Round(playerEnergy.MaxEnergy);
     }
 
     private void OnEnable()
@@ -42,6 +42,6 @@ public class UIEnergyBar : MonoBehaviour {
     public void OnEnergyStatChange (float amount, bool increase)
     {
         energyBarSlider.value = amount;
-        energyBarText.text = amount + "/" + playerEnergy.MaxEnergy;
+        energyBarText.text = Mathf.Round(playerEnergy.Energy) + "/" + Mathf.Round(playerEnergy.MaxEnergy);
     }
 }

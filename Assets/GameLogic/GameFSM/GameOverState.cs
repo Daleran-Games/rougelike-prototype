@@ -14,6 +14,7 @@ public class GameOverState : GameState
 
         GameInput.Instance.QuitEvent += OnQuitGameKey;
         GameInput.Instance.ContinueEvent += OnRestartGame;
+        SoundManager.Instance.RandomSFX(GameManager.Instance.Config.GameOverSound);
     }
 
     private void OnDisable()

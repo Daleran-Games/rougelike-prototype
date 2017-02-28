@@ -12,7 +12,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DaleranGame
   productName: Rougelike Prototype
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: ee725b2e5e53be343bdf95f561a083fc, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
   m_ShowUnitySplashScreen: 1
