@@ -3,55 +3,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DalLib;
 
-public class UIManager : MonoBehaviour {
 
+
+public class UIManager : Singleton<UIManager> {
+
+    protected UIManager () { }
 
     public Text levelText;
-    public GameObject levelImage;
-    public GameObject tutorialImage;
+    public GameObject levelPanel;
+    public GameObject helpPanel;
 
-
+    SaveData save;
 
     void Awake()
     {
-
+        save = GameManager.Instance.Save;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void SetUpUI()
     {
-        levelImage = GameObject.Find("LevelImage");
+        levelPanel = GameObject.Find("LevelPanel");
         levelText = GameObject.Find("LevelText").GetRequiredComponent<Text>();
-        levelText.text = "System Loading: Zone " + GameManager.instance.Zone + Environment.NewLine + Environment.NewLine + "*  Initiating sensors: 0028:C0034B23" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Load success. Standby for initialization _";
-        levelImage.SetActive(true);
-        tutorialImage = GameObject.Find("TutorialImage");
+        levelText.text = "System Loading: Zone " + save.SavedZone + Environment.NewLine + Environment.NewLine + "*  Initiating sensors: 0028:C0034B23" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Load success. Standby for initialization _";
+        levelPanel.SetActive(true);
+        helpPanel = GameObject.Find("HelpPanel");
 
     }
 
     public void HideLevelScreen()
     {
-        levelImage.SetActive(false);
+        levelPanel.SetActive(false);
     }
 
     public void SetTutorialScreen(bool state)
     {
-        tutorialImage.SetActive(state);
+        helpPanel.SetActive(state);
     }
 
 
     public void ShowGameOverScreen()
     {
-        levelText.text = "A fatal exception has occurred at zone " + GameManager.instance.Zone + ". The current application will be terminated." + Environment.NewLine + Environment.NewLine + "*  System will attempt to reboot automatically." + Environment.NewLine + "*  Hardware fault located at 0031:D0014F09" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Reboot failed _";
-        levelImage.SetActive(true);
+        levelText.text = "A fatal exception has occurred at zone " + save.SavedZone + ". The current application will be terminated." + Environment.NewLine + Environment.NewLine + "*  System will attempt to reboot automatically." + Environment.NewLine + "*  Hardware fault located at 0031:D0014F09" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Reboot failed _";
+        levelPanel.SetActive(true);
     }
 }

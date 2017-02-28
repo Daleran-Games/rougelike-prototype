@@ -22,6 +22,11 @@ GameObject:
   - component: {fileID: 114420428823192512}
   - component: {fileID: 114829765949939714}
   - component: {fileID: 114684959180978506}
+  - component: {fileID: 114886822855411362}
+  - component: {fileID: 114594556811829220}
+  - component: {fileID: 114200817199736066}
+  - component: {fileID: 114920884423444588}
+  - component: {fileID: 114549492544150334}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -42,6 +47,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114200817199736066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926192435482392}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6c9c8aebc044543bb1d2c0e89fd232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114420428823192512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,6 +70,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapTemplate: {fileID: 11400000, guid: 20db1fa690b918640aeae69790ac3ebe, type: 2}
+--- !u!114 &114549492544150334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926192435482392}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f82dd882297bd44a75c1177672f53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114594556811829220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926192435482392}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af143e97a7ebd6a4c807a039e6764069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114684959180978506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerEnergy: 9999
   playerCondition: 9999
+  zone: 0
+  slowTimeScale: 0.1
 --- !u!114 &114829765949939714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,9 +118,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fca9e56a77e42448f8c27f4ff14fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameBoard: {fileID: 0}
-  playerSave: {fileID: 0}
-  gameOverSound: {fileID: 8300000, guid: 66bbdacb61619714da884a2eac2cce51, type: 3}
-  turnDelay: 0.1
-  levelStartDelay: 2
-  playersTurn: 1
+  config: {fileID: 11400000, guid: 75b8b7b64ff295042924fbc3dfbca309, type: 2}
+--- !u!114 &114886822855411362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926192435482392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57323383757f0f7419eefd4e62cf8e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114920884423444588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926192435482392}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88dd1f30e852664b9dee1d724e32365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

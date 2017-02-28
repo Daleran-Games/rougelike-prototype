@@ -31,32 +31,18 @@ public class Enemy : MovingObject {
 
     protected override void Start ()
     {
-        GameManager.instance.AddEnemyToList(this);
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
 	}
 
     private void OnEnable()
     {
-        enemyCondition.ConditionStatChange += OnTakeDamage;
+        //enemyCondition.ConditionStatChange += OnTakeDamage;
     }
 
     private void OnDisable()
     {
-        enemyCondition.ConditionStatChange -= OnTakeDamage;
-    }
-
-    protected override void AttemptMove<T>(int xDir, int yDir)
-    {
-        
-        if (skipMove)
-        {
-            skipMove = false;
-            return; 
-        }
-        
-        base.AttemptMove<T>(xDir, yDir);
-        skipMove = true;
+        //enemyCondition.ConditionStatChange -= OnTakeDamage;
     }
 
     public void MoveEnemy()
@@ -73,17 +59,17 @@ public class Enemy : MovingObject {
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
 
-        AttemptMove<ConditionBehaviour>(xDir, yDir);
 
     }
 
-    protected override void OnCantMove<T>(T component)
+    /*
+    protected void OnCantMove<T>(T component)
     {
         ConditionBehaviour hitObject = component as ConditionBehaviour;
 
         enemyAnimator.SetTrigger("wilderbotAttack");
 
-        SoundManager.instance.RandomSFX(enemyAttacks);
+        SoundManager.Instance.RandomSFX(enemyAttacks);
 
         if (hitObject.tag != "Enemy")
             hitObject.Condition -= damage;
@@ -92,12 +78,11 @@ public class Enemy : MovingObject {
     public void OnTakeDamage (int amount, bool increase)
     {
         enemyAnimator.SetTrigger("wilderbotHit");
-        SoundManager.instance.RandomSFX(enemyHits);
+        SoundManager.Instance.RandomSFX(enemyHits);
         StartCoroutine(FlashColor(hitColor));
 
         if (enemyCondition.Condition <= 0)
         {
-            GameManager.instance.RemoveEnemyFromList(this);
             enemyAnimator.enabled = false;
             enemyRenderer.sprite = deadSprite;
             StartCoroutine(SwitchToColor(deadColor));
@@ -105,7 +90,7 @@ public class Enemy : MovingObject {
             enabled = false;
         }
     }
-
+    */
     IEnumerator FlashColor (Color32 color)
     {
         enemyRenderer.color = color;

@@ -38,7 +38,7 @@ public class Destructable : MonoBehaviour {
 
     void OnTakeDamage(int newValue, bool increase)
     {
-        SoundManager.instance.RandomSFX(damageSounds);
+        SoundManager.Instance.RandomSFX(damageSounds);
         if (condition.Condition < condition.MaxCondition)
         {
             destructibleRenderer.sprite = damagedSprite;

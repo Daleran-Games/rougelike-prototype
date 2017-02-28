@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void IntStatChangeHandler(int amount, bool increase);
+public delegate void FloatStatChangeHandler(float amount, bool increase);
 
 public class EnergyBehaviour : MonoBehaviour {
 
-    public event IntStatChangeHandler EnergyStatChange;
+    public event FloatStatChangeHandler EnergyStatChange;
 
     [SerializeField]
-    int energy = 0;
-    public int Energy
+    float energy = 0;
+    public float Energy
     {
         get { return energy; }
         set
@@ -36,8 +37,8 @@ public class EnergyBehaviour : MonoBehaviour {
     }
 
     [SerializeField]
-    int maxEnergy = 150;
-    public int MaxEnergy
+    float maxEnergy = 150;
+    public float MaxEnergy
     {
         get { return maxEnergy; }
         set

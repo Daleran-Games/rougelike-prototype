@@ -39,7 +39,7 @@ public class UIEnergyBar : MonoBehaviour {
     }
 
     // Update is called once per frame
-    public void OnEnergyStatChange (int amount, bool increase)
+    public void OnEnergyStatChange (float amount, bool increase)
     {
         energyBarSlider.value = amount;
         energyBarText.text = amount + "/" + playerEnergy.MaxEnergy;

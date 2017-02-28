@@ -6,141 +6,173 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DalLib;
 
+public delegate void StateChangeHandler(GameState state);
+
 public class GameManager : MonoBehaviour {
 
-    public static GameManager instance = null;
-    public BoardManager gameBoard;
-    public PlayerSave playerSave;
-    public AudioClip gameOverSound;
-    public float turnDelay = 0.1f;
-    public float levelStartDelay = 2f;
+    protected GameManager() { }
+    public static GameManager Instance = null;
 
-    [HideInInspector]
-    public bool playersTurn = true;
 
-    UIManager ui;
-    int zone = 0;
-    public int Zone
+    #region PersistentData
+    private SaveData save;
+    public SaveData Save
     {
-        get { return zone; }
-        private set { zone = value; }
+        get { return save; }
+        set { save = value; }
     }
 
-    bool enemiesMoving;
-    bool doingSetup = true;
-    List<Enemy> enemies;
-    public List<Enemy> Enemies
+    [SerializeField]
+    private ConfigSettings config;
+    public ConfigSettings Config
     {
-        get { return enemies; }
-        private set { enemies = value; }
+        get { return config; }
+        set { config = value; }
+    }
+    #endregion
+
+    #region StateMachine
+
+    public event StateChangeHandler ChangedState;
+
+    private GameState currentState;
+    public GameState CurrentState
+    {
+        get { return currentState; }
+        private set { currentState = value; }
     }
 
-
-
-	// Use this for initialization
-	void Awake ()
+    private GameMenuState gameMenu;
+    public GameMenuState GameMenu
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
+        get { return gameMenu; }
+        private set { gameMenu = value; }
+    }
+
+    private LoadSceneState loadScene;
+    public LoadSceneState LoadScene
+    {
+        get { return loadScene; }
+        private set { loadScene = value; }
+    }
+
+    private PlayState play;
+    public PlayState Play
+    {
+        get { return play; }
+        private set { play = value; }
+    }
+
+    private GameOverState gameOver;
+    public GameOverState GameOver
+    {
+        get { return gameOver; }
+        private set { gameOver = value; }
+    }
+
+    #endregion
+
+    // Use this for initialization
+    void Awake ()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(gameObject);
 
-
         DontDestroyOnLoad(gameObject);
-        enemies = new List<Enemy>();
-        gameBoard = gameObject.GetRequiredComponent<BoardManager>();
-        playerSave = gameObject.GetRequiredComponent<PlayerSave>();
+
+        GameMenu = gameObject.GetOrAddComponent<GameMenuState>();
+        LoadScene = gameObject.GetOrAddComponent<LoadSceneState>();
+        Play = gameObject.GetOrAddComponent<PlayState>();
+        GameOver = gameObject.GetOrAddComponent<GameOverState>();
+
+        CurrentState = LoadScene;
+
+        LoadScene.enabled = false;
+        GameMenu.enabled = false;
+        Play.enabled = false;
+        GameOver.enabled = false;
+
+        Save = gameObject.GetOrAddComponent<SaveData>();
+
+        if (Config == null)
+            Debug.LogError("DG ERROR: No Config File Attached");
 
 	}
 
-    void OnLevelFinishedLoading (Scene scene, LoadSceneMode mode)
-    {
-        Zone++;
-        InitGame();
-    }
-
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+        LoadScene.StateDisabled += OnCompleteLoadScene;
+        Play.StateDisabled += OnPlayerExitPlay;
+        Play.PlayerDieEvent += OnPlayerDeath;
+        Play.RequestMenuEvent += OnRequestMenu;
+        GameMenu.StateDisabled += OnReturnToGame;
+        GameOver.StateDisabled += OnCompleteGameOver;
+    }
+
+    private void Start()
+    {
+        StartGameStateMachine();
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+        LoadScene.StateDisabled -= OnCompleteLoadScene;
+        Play.StateDisabled -= OnPlayerExitPlay;
+        Play.PlayerDieEvent -= OnPlayerDeath;
+        Play.RequestMenuEvent -= OnRequestMenu;
+        GameMenu.StateDisabled -= OnReturnToGame;
+        GameOver.StateDisabled -= OnCompleteGameOver;
     }
 
-    private void InitGame()
+    void StartGameStateMachine ()
     {
-        doingSetup = true;
-
-        ui = GameObject.Find("UICanvas").GetRequiredComponent<UIManager>();
-
-        ui.SetUpUI();
-
-        if (Zone > 1)
-            SetTutorialState(false);
-
-        Invoke("OnFinishedLevelSetup", levelStartDelay);
-
-        enemies.Clear();
-        gameBoard.SetupScene(Zone);
+        CurrentState.enabled = true;
     }
 
-    void OnFinishedLevelSetup()
+    void ChangeState(GameState newState)
     {
-        ui.HideLevelScreen();
-        doingSetup = false;
+        CurrentState.enabled = false;
+        CurrentState = newState;
+        CurrentState.enabled = true;
+
+        if (ChangedState != null)
+            ChangedState(newState);
     }
 
-    public void GameOver()
+    void OnCompleteLoadScene(GameState newState)
     {
-        ui.ShowGameOverScreen();
-        enabled = false;
+        ChangeState(Play);
     }
 
-    // Update is called once per frame
-    void Update ()
+    void OnPlayerExitPlay (GameState newState)
     {
-		if (playersTurn || enemiesMoving || doingSetup)
-        {
-            return;
-        }
+        SceneManager.LoadScene(1);
+        ChangeState(LoadScene);
 
-        StartCoroutine(MoveEnemies());
-	}
-
-    public void SetTutorialState (bool state)
-    {
-        ui.SetTutorialScreen(state);
     }
 
-    public void AddEnemyToList(Enemy script)
+    void OnPlayerDeath (GameState newState)
     {
-        enemies.Add(script);
+        ChangeState(GameOver);
     }
 
-    public void RemoveEnemyFromList (Enemy script)
+    void OnRequestMenu (GameState newState)
     {
-        enemies.Remove(script);
+        ChangeState(GameMenu);
     }
 
-    IEnumerator MoveEnemies()
+    void OnReturnToGame (GameState newState)
     {
-        enemiesMoving = true;
-        yield return new WaitForSeconds(turnDelay);
-        if (enemies.Count == 0)
-        {
-            yield return new WaitForSeconds(turnDelay);
-        }
-
-        for (int i = 0; i <enemies.Count; i++)
-        {
-            enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(turnDelay);
-        }
-
-        playersTurn = true;
-        enemiesMoving = false;
-
+        ChangeState(Play);
     }
+
+    void OnCompleteGameOver (GameState newState)
+    {
+        SceneManager.LoadScene(1);
+        ChangeState(LoadScene);
+    }
+
+
 }

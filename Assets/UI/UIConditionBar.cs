@@ -26,7 +26,7 @@ public class UIConditionBar : MonoBehaviour {
         conditionBarSlider.minValue = 0;
         conditionBarSlider.maxValue = playerCondition.MaxCondition;
 
-        conditionBarText.text = playerCondition.Condition + "/" + playerCondition.Condition;
+        conditionBarText.text = playerCondition.Condition + "/" + playerCondition.MaxCondition;
     }
 
     private void OnEnable()
