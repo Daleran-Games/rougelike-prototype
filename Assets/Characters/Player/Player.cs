@@ -41,8 +41,6 @@ public class Player : MovingObject {
     public event PlayerEventHandler PlayerExitEvent;
     public event PlayerEventHandler PlayerDeathEvent;
 
-
-
     Animator playerAnimator;
     EnergyBehaviour playerEnergy;
     ConditionBehaviour playerCondition;
@@ -55,12 +53,13 @@ public class Player : MovingObject {
         playerEnergy = gameObject.GetRequiredComponent<EnergyBehaviour>();
         playerCondition = gameObject.GetRequiredComponent<ConditionBehaviour>();
         playerRenderer = gameObject.GetRequiredComponent<SpriteRenderer>();
-        save = GameManager.Instance.Save;
+
     }
 
     // Use this for initialization
     protected override void Start ()
     {
+        save = GameManager.Instance.Save;
         playerEnergy.Energy = save.SavedPlayerEnergy;
         playerCondition.Condition = save.SavedPlayerCondition;
 
@@ -84,26 +83,29 @@ public class Player : MovingObject {
     // Update is called once per frame
     void Update ()
     {
-        if (ActionTimer != 0)
+        if (ActionTimer > 0)
             ActionTimer -= Time.deltaTime;
 
     }
 
-    public override bool Move(float horizontal, float vertical, Vector2 mousePos)
+    public override void Move(float horizontal, float vertical)
     {
         if(!SoundManager.Instance.efxSource.isPlaying)
             SoundManager.Instance.RandomSFX(moveSounds);
 
         playerEnergy.Energy -= moveCost * Time.deltaTime;
 
-        return base.Move(horizontal, vertical, mousePos);
-
-
+        base.Move(horizontal, vertical);
     } 
+
+    public void StopPlayer ()
+    {
+        base.Move(0f, 0f);
+    }
 
     public void UseLeftAbility ()
     {
-
+        AttackAbility();
     }
 
     public void UseRightAbility ()
@@ -116,6 +118,7 @@ public class Player : MovingObject {
 
         playerAnimator.SetTrigger("playerChop");
         playerEnergy.Energy -= attackCost;
+        ActionTimer += attackTime;
     }
 
     void RepairAbility()
@@ -138,7 +141,7 @@ public class Player : MovingObject {
         if (collision.tag == "Exit")
         {
             PlayerExitEvent();
-            enabled = false;
+            Debug.Log("Hit Exit");
         }
 
         if (collision.gameObject.GetComponent<Collectable>() !=null)

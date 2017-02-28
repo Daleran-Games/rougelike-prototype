@@ -22,12 +22,12 @@ GameObject:
   - component: {fileID: 212791255017396988}
   - component: {fileID: 61221893408416242}
   - component: {fileID: 114440244178138974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CrystalSmall
   m_TagString: CrystalSmall
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4190529228722748
 Transform:

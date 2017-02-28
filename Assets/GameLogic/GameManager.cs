@@ -104,31 +104,31 @@ public class GameManager : MonoBehaviour {
     private void OnEnable()
     {
         LoadScene.StateDisabled += OnCompleteLoadScene;
-        Play.StateDisabled += OnPlayerExitPlay;
         Play.PlayerDieEvent += OnPlayerDeath;
+        Play.PlayerExitEvent += OnPlayerExitPlay;
         Play.RequestMenuEvent += OnRequestMenu;
         GameMenu.StateDisabled += OnReturnToGame;
         GameOver.StateDisabled += OnCompleteGameOver;
+
+        CurrentState.enabled = true;
     }
 
     private void Start()
     {
-        StartGameStateMachine();
+        if (ChangedState != null)
+            ChangedState(CurrentState);
+
+        Debug.Log("Transitioning to: " + CurrentState.GetType().ToString());
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         LoadScene.StateDisabled -= OnCompleteLoadScene;
-        Play.StateDisabled -= OnPlayerExitPlay;
         Play.PlayerDieEvent -= OnPlayerDeath;
+        Play.PlayerExitEvent -= OnPlayerExitPlay;
         Play.RequestMenuEvent -= OnRequestMenu;
         GameMenu.StateDisabled -= OnReturnToGame;
         GameOver.StateDisabled -= OnCompleteGameOver;
-    }
-
-    void StartGameStateMachine ()
-    {
-        CurrentState.enabled = true;
     }
 
     void ChangeState(GameState newState)
@@ -139,6 +139,8 @@ public class GameManager : MonoBehaviour {
 
         if (ChangedState != null)
             ChangedState(newState);
+
+        Debug.Log("Transitioning to: " + newState.GetType().ToString());
     }
 
     void OnCompleteLoadScene(GameState newState)
@@ -148,8 +150,9 @@ public class GameManager : MonoBehaviour {
 
     void OnPlayerExitPlay (GameState newState)
     {
-        SceneManager.LoadScene(1);
+        Debug.Log("Game Manager Recieved Exit Request");
         ChangeState(LoadScene);
+        SceneManager.LoadScene(1);
 
     }
 
@@ -170,9 +173,11 @@ public class GameManager : MonoBehaviour {
 
     void OnCompleteGameOver (GameState newState)
     {
-        SceneManager.LoadScene(1);
         ChangeState(LoadScene);
+        SceneManager.LoadScene(1);
     }
+
+
 
 
 }

@@ -9,26 +9,26 @@ public class MainMenuManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        GameInput.Instance.MenuEvent += OnContinueKey;
+        GameInput.Instance.ContinueEvent += OnContinueKey;
         GameInput.Instance.QuitEvent += OnQuitKey;
     }
 
     private void OnDisable()
     {
-        GameInput.Instance.MenuEvent -= OnContinueKey;
+        GameInput.Instance.ContinueEvent -= OnContinueKey;
         GameInput.Instance.QuitEvent -= OnQuitKey;
     }
 
     public void OnContinueKey ()
     {
-        GameInput.Instance.MenuEvent -= OnContinueKey;
+        GameInput.Instance.ContinueEvent -= OnContinueKey;
         GameInput.Instance.QuitEvent -= OnQuitKey;
         SceneManager.LoadScene(FirstScene);
     }
 
     public void OnQuitKey()
     {
-        GameInput.Instance.MenuEvent -= OnContinueKey;
+        GameInput.Instance.ContinueEvent -= OnContinueKey;
         GameInput.Instance.QuitEvent -= OnQuitKey;
         Application.Quit();
     }

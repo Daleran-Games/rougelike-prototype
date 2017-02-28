@@ -666,6 +666,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 58055805808936634, guid: 7bdaba4cfd4daf14687a816821b7d304,
+        type: 2}
+      propertyPath: m_Radius
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 58055805808936634, guid: 7bdaba4cfd4daf14687a816821b7d304,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1403279361124234, guid: 7bdaba4cfd4daf14687a816821b7d304, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bdaba4cfd4daf14687a816821b7d304, type: 2}
   m_IsPrefabParent: 0

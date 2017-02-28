@@ -11,45 +11,37 @@ public class ConfigSettings : ScriptableObject
     private float turnDelay = 0.1f;
     public float TurnDelay
     {
-        get
-        {
-            return turnDelay;
-        }
-
-        set
-        {
-            turnDelay = value;
-        }
+        get { return turnDelay; }
+        set { turnDelay = value; }
     }
 
     [SerializeField]
-    private float levelStartDelay = 2f;
+    private float levelStartDelay = 3f;
     public float LevelStartDelay
     {
-        get
-        {
-            return levelStartDelay;
-        }
-
-        set
-        {
-            levelStartDelay = value;
-        }
+        get { return levelStartDelay; }
+        set { levelStartDelay = value; }
     }
 
     [SerializeField]
     private AudioClip gameOverSound;
     public AudioClip GameOverSound
     {
-        get
-        {
-            return gameOverSound;
-        }
+        get { return gameOverSound; }
+        set { gameOverSound = value; }
+    }
 
-        set
-        {
-            gameOverSound = value;
-        }
+    [SerializeField]
+    private float inititalFixedDeltaTime;
+    public float InititalFixedDeltaTime
+    {
+        get { return inititalFixedDeltaTime; }
+        set { inititalFixedDeltaTime = value; }
+    }
+
+    private void Awake()
+    {
+        inititalFixedDeltaTime = Time.fixedDeltaTime;
     }
 
 

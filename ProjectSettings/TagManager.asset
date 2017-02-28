@@ -19,11 +19,11 @@ TagManager:
   - UI
   - 
   - 
-  - BlockingLayer
-  - 
-  - 
-  - 
-  - 
+  - Low
+  - Mid
+  - High
+  - Walking
+  - Flying
   - 
   - 
   - 

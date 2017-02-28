@@ -13,7 +13,7 @@ public class GameMenuState : GameState
             StateEnabled(this);
 
         GameInput.Instance.QuitEvent += OnQuitGameKey;
-        GameInput.Instance.MenuEvent += OnResumeGame;
+        GameInput.Instance.ContinueEvent += OnResumeGame;
         Time.timeScale = 0f;
     }
 
@@ -21,18 +21,20 @@ public class GameMenuState : GameState
     {
         Time.timeScale = GameManager.Instance.Save.SlowTimeScale;
         GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.MenuEvent -= OnResumeGame;
+        GameInput.Instance.ContinueEvent -= OnResumeGame;
     }
 
     void OnQuitGameKey()
     {
         GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.MenuEvent -= OnResumeGame;
+        GameInput.Instance.ContinueEvent -= OnResumeGame;
         Application.Quit();
     }
 
     void OnResumeGame()
     {
+        Debug.Log("ResumingGame");
+
         if (StateEnabled != null)
             StateDisabled(this);
     }

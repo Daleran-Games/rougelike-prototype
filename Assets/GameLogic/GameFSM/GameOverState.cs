@@ -13,19 +13,19 @@ public class GameOverState : GameState
             StateEnabled(this);
 
         GameInput.Instance.QuitEvent += OnQuitGameKey;
-        GameInput.Instance.MenuEvent += OnRestartGame;
+        GameInput.Instance.ContinueEvent += OnRestartGame;
     }
 
     private void OnDisable()
     {
         GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.MenuEvent -= OnRestartGame;
+        GameInput.Instance.ContinueEvent -= OnRestartGame;
     }
 
     void OnQuitGameKey ()
     {
         GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.MenuEvent -= OnRestartGame;
+        GameInput.Instance.ContinueEvent -= OnRestartGame;
         Application.Quit();
     }
 

@@ -12,8 +12,8 @@ public class GameInput : MonoBehaviour {
 
     public static GameInput Instance = null;
 
-    private EventKey menuKey = new EventKey("Skip");
-    public event EventKeyHandler MenuEvent;
+    private EventKey continueEvent = new EventKey("Skip");
+    public event EventKeyHandler ContinueEvent;
 
     private EventKey quitKey = new EventKey("Cancel");
     public event EventKeyHandler QuitEvent;
@@ -39,12 +39,8 @@ public class GameInput : MonoBehaviour {
     public event EventKeyHandler RightAbilityEvent;
 
     public EventKey skipTurn = new EventKey("Skip");
-    public event EventKeyHandler SkipEvent;
 
-
-
-    // Use this for initialization
-    void Update()
+    private void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -55,22 +51,24 @@ public class GameInput : MonoBehaviour {
     }
 
     // Use this for initialization
-    void FixedUpdate()
+    void Update()
     {
-        if (menuKey.IsPressedOnce() && MenuEvent!= null)
-            MenuEvent();
+
+        if (continueEvent.IsPressedOnce() && ContinueEvent != null)
+            ContinueEvent();
 
         if (quitKey.IsPressedOnce() && QuitEvent != null)
             QuitEvent();
 
-        if (leftAbility.IsPressed() && LeftAbilityEvent != null)
+    }
+
+    private void FixedUpdate()
+    {
+        if (leftAbility.IsPressedOnce() && LeftAbilityEvent != null)
             LeftAbilityEvent();
 
-        if (rightAbility.IsPressed() && RightAbilityEvent != null)
+        if (rightAbility.IsPressedOnce() && RightAbilityEvent != null)
             RightAbilityEvent();
-
-        if (skipTurn.IsPressed() && SkipEvent != null)
-            SkipEvent();
 
     }
 

@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4395858837129584}
   - component: {fileID: 212547835374561854}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Road5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4395858837129584
 Transform:

@@ -23,12 +23,12 @@ GameObject:
   - component: {fileID: 61571914574211404}
   - component: {fileID: 114827443934027734}
   - component: {fileID: 114247467262780680}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Plant1
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4043249790643588
 Transform:

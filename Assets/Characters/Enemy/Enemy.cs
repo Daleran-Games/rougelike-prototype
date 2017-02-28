@@ -17,8 +17,6 @@ public class Enemy : MovingObject {
     Transform target;
     Collider2D enemyCollider;
     SpriteRenderer enemyRenderer;
-    bool skipMove;
-
     ConditionBehaviour enemyCondition;
 
     private void Awake()
@@ -37,12 +35,17 @@ public class Enemy : MovingObject {
 
     private void OnEnable()
     {
-        //enemyCondition.ConditionStatChange += OnTakeDamage;
+        enemyCondition.ConditionStatChange += OnTakeDamage;
     }
 
     private void OnDisable()
     {
-        //enemyCondition.ConditionStatChange -= OnTakeDamage;
+        enemyCondition.ConditionStatChange -= OnTakeDamage;
+    }
+
+    private void Update()
+    {
+
     }
 
     public void MoveEnemy()
@@ -58,8 +61,6 @@ public class Enemy : MovingObject {
         {
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
-
-
     }
 
     /*
@@ -74,6 +75,8 @@ public class Enemy : MovingObject {
         if (hitObject.tag != "Enemy")
             hitObject.Condition -= damage;
     }
+        */
+
 
     public void OnTakeDamage (int amount, bool increase)
     {
@@ -90,7 +93,7 @@ public class Enemy : MovingObject {
             enabled = false;
         }
     }
-    */
+
     IEnumerator FlashColor (Color32 color)
     {
         enemyRenderer.color = color;

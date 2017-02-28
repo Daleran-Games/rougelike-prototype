@@ -22,11 +22,11 @@ GameObject:
   - component: {fileID: 212704982875193148}
   - component: {fileID: 95163528478275474}
   - component: {fileID: 50225041016172798}
-  - component: {fileID: 61025751256143906}
   - component: {fileID: 114717997829964866}
   - component: {fileID: 114853707305377130}
   - component: {fileID: 114601880713499386}
-  m_Layer: 8
+  - component: {fileID: 58055805808936634}
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -53,21 +53,21 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1403279361124234}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &61025751256143906
-BoxCollider2D:
+  m_Constraints: 4
+--- !u!58 &58055805808936634
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -79,7 +79,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_Radius: 0.4
 --- !u!95 &95163528478275474
 Animator:
   serializedVersion: 3
@@ -121,10 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4dd31c1ed37d1469d0b3ee3ef1b575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  moveSpeed: 3
   damage: 1
+  attackTime: 0.5
+  repairTime: 2
   attackCost: 2
   moveCost: 1
   healAmount: 4

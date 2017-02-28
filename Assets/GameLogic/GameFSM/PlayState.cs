@@ -14,17 +14,22 @@ public class PlayState : GameState
     public bool PlayerIsMoving
     {
         get { return playerIsMoving; }
-        private set { playerIsMoving = value; }
+        private set
+        {
+            playerIsMoving = value;
+        }
     }
 
 
 
     Player player;
     SaveData save;
+    ConfigSettings config;
 
     private void Start()
     {
         save = GameManager.Instance.Save;
+        config = GameManager.Instance.Config;
     }
 
     void OnEnable()
@@ -36,10 +41,9 @@ public class PlayState : GameState
 
         GameInput.Instance.LeftAbilityEvent += PlayerLeftAbility;
         GameInput.Instance.RightAbilityEvent += PlayerRightAbility;
-        GameInput.Instance.SkipEvent += PlayerSkipTurn;
-        GameInput.Instance.MenuEvent += OnRequestMenu;
+        GameInput.Instance.QuitEvent += OnRequestMenu;
         player.PlayerExitEvent += OnPlayerExit;
-        player.PlayerDeathEvent += OnPlayerExit;
+        player.PlayerDeathEvent += OnPlayerDeath;
 
     }
 
@@ -48,11 +52,13 @@ public class PlayState : GameState
         if (HandlePlayerInput () || player.ActionTimer > 0)
         {
             Time.timeScale = 1f;
+            Time.fixedDeltaTime = config.InititalFixedDeltaTime;
             PlayerIsMoving = true;
         }
         else
         {
             Time.timeScale = save.SlowTimeScale;
+            Time.fixedDeltaTime = config.InititalFixedDeltaTime * Time.timeScale;
             PlayerIsMoving = false;
         }
             
@@ -60,7 +66,11 @@ public class PlayState : GameState
 
     void OnDisable()
     {
-        RemoveEvents();
+        GameInput.Instance.LeftAbilityEvent -= PlayerLeftAbility;
+        GameInput.Instance.RightAbilityEvent -= PlayerRightAbility;
+        GameInput.Instance.QuitEvent -= OnRequestMenu;
+        player.PlayerExitEvent -= OnPlayerExit;
+        player.PlayerDeathEvent -= OnPlayerExit;
 
         if (StateEnabled != null)
             StateDisabled(this);
@@ -75,6 +85,8 @@ public class PlayState : GameState
 
     void OnPlayerExit ()
     {
+        Debug.Log("Play State Recieved Exit Request");
+
         if (PlayerExitEvent !=null)
             PlayerExitEvent(this);
     }
@@ -92,20 +104,22 @@ public class PlayState : GameState
 
         float hz = GameInput.Instance.Horizontal.GetAxisValue();
         float vr = GameInput.Instance.Vertical.GetAxisValue();
+        bool skip = GameInput.Instance.skipTurn.IsPressed();
 
         if (hz != 0f || vr != 0f)
         {
             inputEncountered = true;
-            MovePlayer(hz, vr, Input.mousePosition);
+            player.Move(hz,vr);
         }
+
+        if (skip)
+            inputEncountered = true;
+
+        if (hz == 0 && vr == 0)
+            player.StopPlayer();
 
         return inputEncountered;
 
-    }
-
-    void MovePlayer (float horizontal, float vertical, Vector2 mousePos)
-    {
-        player.Move(horizontal, vertical, mousePos);
     }
 
     void PlayerLeftAbility()
@@ -127,18 +141,4 @@ public class PlayState : GameState
 
     }
 
-    void PlayerSkipTurn ()
-    {
-        PlayerIsMoving = true;
-    }
-
-    void RemoveEvents ()
-    {
-        GameInput.Instance.LeftAbilityEvent -= PlayerLeftAbility;
-        GameInput.Instance.RightAbilityEvent -= PlayerRightAbility;
-        GameInput.Instance.SkipEvent -= PlayerSkipTurn;
-        GameInput.Instance.MenuEvent += OnRequestMenu;
-        player.PlayerExitEvent -= OnPlayerExit;
-        player.PlayerDeathEvent -= OnPlayerExit;
-    }
 }

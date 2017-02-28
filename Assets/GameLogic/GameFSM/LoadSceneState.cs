@@ -14,34 +14,37 @@ public class LoadSceneState : GameState
     private void Awake()
     {
         gameWorld = GameManager.Instance.gameObject.GetRequiredComponent<BoardManager>();
+        save = GameManager.Instance.Save;
+        config = GameManager.Instance.Config;
+        SceneManager.sceneLoaded += OnSceneFinishedLoading;
     }
+
 
     void OnEnable()
     {
-        save = GameManager.Instance.Save;
-        config = GameManager.Instance.Config;
-        save.SavedZone++;
-        InitializeGame();
+
+        Invoke("FinishedLoading", config.LevelStartDelay);
 
         if (StateEnabled != null)
             StateEnabled(this);
     }
 
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-
+        SceneManager.sceneLoaded -= OnSceneFinishedLoading;
     }
 
-    void InitializeGame ()
-    {
-        Invoke("FinishedLoading", config.LevelStartDelay);
-        gameWorld.SetupScene(save.SavedZone);
-    }
 
     void FinishedLoading ()
     {
         if (StateEnabled != null)
             StateDisabled(this);
+    }
+
+    void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        save.SavedZone++;
+        gameWorld.SetupScene(save.SavedZone);
     }
 }

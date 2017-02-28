@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class HelpPanel : MonoBehaviour {
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
+    private void Awake()
     {
         GameManager.Instance.GameMenu.StateEnabled += OnEnterMenuState;
         GameManager.Instance.GameMenu.StateDisabled += OnExitMenuState;
-
+        gameObject.SetActive(false);
     }
+
 
     private void OnDestroy()
     {

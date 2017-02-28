@@ -12,27 +12,34 @@ public class LevelPanel : MonoBehaviour {
     private void Awake()
     {
         levelText = GetComponentInChildren<Text>();
-        save = GameManager.Instance.Save;
-        gameObject.SetActive(true);
 
         if (levelText == null)
             Debug.LogError("DG ERROR: No text component on level panel");
+
+        save = GameManager.Instance.Save;
+        GameManager.Instance.LoadScene.StateEnabled += OnBeginLevelLoading;
+        GameManager.Instance.LoadScene.StateDisabled += OnHideScreen;
+        GameManager.Instance.GameOver.StateEnabled += OnGameOver;
+        GameManager.Instance.GameOver.StateDisabled += OnHideScreen;
+
+    }
+
+    private void Start()
+    {
+        levelText.text = "System Loading: Zone " + save.SavedZone + Environment.NewLine + Environment.NewLine + "*  Initiating sensors: 0028:C0034B23" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Load success. Standby for initialization _";
     }
 
     private void OnEnable()
     {
-        GameManager.Instance.LoadScene.StateEnabled += OnBeginLevelLoading;
-        GameManager.Instance.LoadScene.StateDisabled += OnFinishLevelLoading;
-        GameManager.Instance.GameOver.StateEnabled += OnGameOver;
-        GameManager.Instance.GameOver.StateDisabled += OnFinishLevelLoading;
+
     }
 
     private void OnDestroy()
     {
         GameManager.Instance.LoadScene.StateEnabled -= OnBeginLevelLoading;
-        GameManager.Instance.LoadScene.StateDisabled -= OnFinishLevelLoading;
+        GameManager.Instance.LoadScene.StateDisabled -= OnHideScreen;
         GameManager.Instance.GameOver.StateEnabled -= OnGameOver;
-        GameManager.Instance.GameOver.StateDisabled -= OnFinishLevelLoading;
+        GameManager.Instance.GameOver.StateDisabled -= OnHideScreen;
 
     }
 
@@ -42,15 +49,15 @@ public class LevelPanel : MonoBehaviour {
         gameObject.SetActive(true);
     }
 
-    public void OnFinishLevelLoading (GameState newState)
+    public void OnHideScreen (GameState newState)
     {
         gameObject.SetActive(false);
     }
 
     public void OnGameOver (GameState newState)
     {
-        levelText.text = "A fatal exception has occurred at zone " + save.SavedZone + ". The current application will be terminated." + Environment.NewLine + Environment.NewLine + "*  Unable to load kernal." + Environment.NewLine + "*  Hardware fault located at 0031:D0014F09" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Press ESC to continue or F1 to terminate _";
         gameObject.SetActive(true);
+        levelText.text = "A fatal exception has occurred at zone " + save.SavedZone + ". The current application will be terminated." + Environment.NewLine + Environment.NewLine + "*  Unable to load kernal." + Environment.NewLine + "*  Hardware fault located at 0031:D0014F09" + Environment.NewLine + "*  Saving sytem logs: " + DateTime.Now.ToString() + Environment.NewLine + Environment.NewLine + "Press ESC to continue or F1 to terminate _";
     }
 
 
