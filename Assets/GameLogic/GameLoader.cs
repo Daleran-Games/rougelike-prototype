@@ -2,29 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameLoader : MonoBehaviour
+namespace DaleranGames.ElectricDreams
 {
-
-    [SerializeField]
-    GameObject gameManager;
-
-    [SerializeField]
-    GameObject soundManager;
-
-    [SerializeField]
-    GameObject inputManager;
-
-    // Use this for initialization
-    void Awake ()
+    public class GameLoader : MonoBehaviour
     {
-        if (GameManager.Instance == null)
-            Instantiate(gameManager);
 
-        if (SoundManager.Instance == null)
-            Instantiate(soundManager);
+        [SerializeField]
+        GameObject gameManager;
 
-        if (GameInput.Instance == null)
-            Instantiate(inputManager);
-	}
+        [SerializeField]
+        GameObject soundManager;
 
+        [SerializeField]
+        GameObject inputManager;
+
+        // Use this for initialization
+        void Awake()
+        {
+            if (GameManager.Instance == null)
+                Instantiate(gameManager);
+
+            if (SoundManager.Instance == null)
+                Instantiate(soundManager);
+
+            if (GameInput.Instance == null)
+                Instantiate(inputManager);
+        }
+
+    } 
 }

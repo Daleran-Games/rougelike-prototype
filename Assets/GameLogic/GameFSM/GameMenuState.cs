@@ -3,41 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMenuState : GameState
+namespace DaleranGames.ElectricDreams
 {
-
-
-    private void OnEnable()
+    public class GameMenuState : GameState
     {
-        if (StateEnabled != null)
-            StateEnabled(this);
 
-        GameInput.Instance.QuitEvent += OnQuitGameKey;
-        GameInput.Instance.ContinueEvent += OnResumeGame;
-        Time.timeScale = 0f;
+
+        private void OnEnable()
+        {
+            if (StateEnabled != null)
+                StateEnabled(this);
+
+            GameInput.Instance.QuitEvent += OnQuitGameKey;
+            GameInput.Instance.ContinueEvent += OnResumeGame;
+            Time.timeScale = 0f;
+        }
+
+        private void OnDisable()
+        {
+            Time.timeScale = GameManager.Instance.Save.SlowTimeScale;
+            GameInput.Instance.QuitEvent -= OnQuitGameKey;
+            GameInput.Instance.ContinueEvent -= OnResumeGame;
+        }
+
+        void OnQuitGameKey()
+        {
+            GameInput.Instance.QuitEvent -= OnQuitGameKey;
+            GameInput.Instance.ContinueEvent -= OnResumeGame;
+            Application.Quit();
+        }
+
+        void OnResumeGame()
+        {
+            Debug.Log("ResumingGame");
+
+            if (StateEnabled != null)
+                StateDisabled(this);
+        }
+
+
     }
-
-    private void OnDisable()
-    {
-        Time.timeScale = GameManager.Instance.Save.SlowTimeScale;
-        GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.ContinueEvent -= OnResumeGame;
-    }
-
-    void OnQuitGameKey()
-    {
-        GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.ContinueEvent -= OnResumeGame;
-        Application.Quit();
-    }
-
-    void OnResumeGame()
-    {
-        Debug.Log("ResumingGame");
-
-        if (StateEnabled != null)
-            StateDisabled(this);
-    }
-
 
 }

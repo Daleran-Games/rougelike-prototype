@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ProjectShooter
+namespace DaleranGames.ElectricDreams
 {
     public class FollowAndZoomCameraController : MonoBehaviour
     {

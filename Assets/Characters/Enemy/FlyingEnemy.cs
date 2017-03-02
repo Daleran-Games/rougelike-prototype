@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingEnemy : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+namespace DaleranGames.ElectricDreams
+{
+
+    public class FlyingEnemy : Enemy
+    {
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+    }
+
 }

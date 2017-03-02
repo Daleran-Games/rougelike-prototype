@@ -22,9 +22,9 @@ TagManager:
   - Low
   - Mid
   - High
-  - Walking
-  - Flying
-  - 
+  - UnitGround
+  - UnityFlying
+  - UnitTerrain
   - 
   - 
   - 

@@ -3,48 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneState : GameState
+namespace DaleranGames.ElectricDreams
 {
-
-    SaveData save;
-    ConfigSettings config;
-
-    BoardManager gameWorld;
-
-    private void Awake()
-    {
-        gameWorld = GameManager.Instance.gameObject.GetRequiredComponent<BoardManager>();
-        save = GameManager.Instance.Save;
-        config = GameManager.Instance.Config;
-        SceneManager.sceneLoaded += OnSceneFinishedLoading;
-    }
-
-
-    void OnEnable()
+    public class LoadSceneState : GameState
     {
 
-        Invoke("FinishedLoading", config.LevelStartDelay);
+        SaveData save;
+        ConfigSettings config;
 
-        if (StateEnabled != null)
-            StateEnabled(this);
-    }
+        BoardManager gameWorld;
+
+        private void Awake()
+        {
+            gameWorld = GameManager.Instance.gameObject.GetRequiredComponent<BoardManager>();
+            save = GameManager.Instance.Save;
+            config = GameManager.Instance.Config;
+            SceneManager.sceneLoaded += OnSceneFinishedLoading;
+        }
 
 
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneFinishedLoading;
-    }
+        void OnEnable()
+        {
+
+            Invoke("FinishedLoading", config.LevelStartDelay);
+
+            if (StateEnabled != null)
+                StateEnabled(this);
+        }
 
 
-    void FinishedLoading ()
-    {
-        if (StateEnabled != null)
-            StateDisabled(this);
-    }
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneFinishedLoading;
+        }
 
-    void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
-    {
-        save.SavedZone++;
-        gameWorld.SetupScene(save.SavedZone);
-    }
+
+        void FinishedLoading()
+        {
+            if (StateEnabled != null)
+                StateDisabled(this);
+        }
+
+        void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
+        {
+            save.SavedZone++;
+            gameWorld.SetupScene(save.SavedZone);
+        }
+    } 
 }

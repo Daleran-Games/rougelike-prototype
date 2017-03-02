@@ -4,10 +4,13 @@ using UnityEngine;
 
 
 
-public abstract class GameState : MonoBehaviour
+namespace DaleranGames.ElectricDreams
 {
+    public abstract class GameState : MonoBehaviour
+    {
 
-    public StateChangeHandler StateEnabled;
-    public StateChangeHandler StateDisabled;
+        public StateChangeHandler StateEnabled;
+        public StateChangeHandler StateDisabled;
 
+    } 
 }

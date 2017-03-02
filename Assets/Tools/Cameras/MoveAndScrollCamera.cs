@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ProjectShooter
+namespace DaleranGames.ElectricDreams
 {
 
     public class MoveAndScrollCamera : MonoBehaviour

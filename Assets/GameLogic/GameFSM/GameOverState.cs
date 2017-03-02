@@ -4,37 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverState : GameState
+namespace DaleranGames.ElectricDreams
 {
-
-    private void OnEnable()
+    public class GameOverState : GameState
     {
-        if (StateEnabled != null)
-            StateEnabled(this);
 
-        GameInput.Instance.QuitEvent += OnQuitGameKey;
-        GameInput.Instance.ContinueEvent += OnRestartGame;
-        SoundManager.Instance.RandomSFX(GameManager.Instance.Config.GameOverSound);
-    }
+        private void OnEnable()
+        {
+            if (StateEnabled != null)
+                StateEnabled(this);
 
-    private void OnDisable()
-    {
-        GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.ContinueEvent -= OnRestartGame;
-    }
+            GameInput.Instance.QuitEvent += OnQuitGameKey;
+            GameInput.Instance.ContinueEvent += OnRestartGame;
+            SoundManager.Instance.RandomSFX(GameManager.Instance.Config.GameOverSound);
+        }
 
-    void OnQuitGameKey ()
-    {
-        GameInput.Instance.QuitEvent -= OnQuitGameKey;
-        GameInput.Instance.ContinueEvent -= OnRestartGame;
-        Application.Quit();
-    }
+        private void OnDisable()
+        {
+            GameInput.Instance.QuitEvent -= OnQuitGameKey;
+            GameInput.Instance.ContinueEvent -= OnRestartGame;
+        }
 
-    void OnRestartGame()
-    {
-        if (StateEnabled != null)
-            StateDisabled(this);
-    }
+        void OnQuitGameKey()
+        {
+            GameInput.Instance.QuitEvent -= OnQuitGameKey;
+            GameInput.Instance.ContinueEvent -= OnRestartGame;
+            Application.Quit();
+        }
+
+        void OnRestartGame()
+        {
+            if (StateEnabled != null)
+                StateDisabled(this);
+        }
 
 
+    } 
 }

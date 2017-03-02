@@ -76,9 +76,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.3}
+  m_Size: {x: 0.5, y: 0.6}
 --- !u!95 &95135332230987076
 Animator:
   serializedVersion: 3
@@ -120,8 +120,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fcfbd5f690b1744b5c1e0b47694cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  objCollider: {fileID: 0}
+  objectRB: {fileID: 0}
+  objRenderer: {fileID: 0}
+  objAnimator: {fileID: 0}
+  moveSpeed: 1
   damage: 1
+  attackTime: 0.5
+  attackSpeed: 3
+  enemyAttacks:
+  - {fileID: 8300000, guid: ec847c8153c905842a4e9d2ca3eb2200, type: 3}
+  - {fileID: 8300000, guid: e9f1008f0bbaab240ba159e5ef108adc, type: 3}
   deadSprite: {fileID: 21300016, guid: cd33286f714594a46a5a109504b805af, type: 3}
   deadColor:
     serializedVersion: 2
@@ -129,12 +138,13 @@ MonoBehaviour:
   hitColor:
     serializedVersion: 2
     rgba: 4282861546
-  flashDuration: 0.2
-  enemyAttacks:
-  - {fileID: 8300000, guid: ec847c8153c905842a4e9d2ca3eb2200, type: 3}
-  - {fileID: 8300000, guid: e9f1008f0bbaab240ba159e5ef108adc, type: 3}
   enemyHits:
   - {fileID: 8300000, guid: 0dea4832f1e247949afe909586a62cd0, type: 3}
+  hitVelocity: 3
+  hitTime: 0.5
+  lootDropObject: {fileID: 1800877276596368, guid: f396e1c3a832b0f438540179f5c6a7f3,
+    type: 2}
+  lootChance: 0.784
 --- !u!212 &212252164961152190
 SpriteRenderer:
   m_ObjectHideFlags: 1

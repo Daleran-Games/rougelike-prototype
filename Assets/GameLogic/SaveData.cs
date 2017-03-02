@@ -2,40 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData : MonoBehaviour
+namespace DaleranGames.ElectricDreams
 {
-
-    [SerializeField]
-    float playerEnergy;
-    public float SavedPlayerEnergy
+    public class SaveData : MonoBehaviour
     {
-        get { return playerEnergy; }
-        set { playerEnergy = value; }
-    }
 
-    [SerializeField]
-    int playerCondition;
-    public int SavedPlayerCondition
-    {
-        get { return playerCondition; }
-        set { playerCondition = value; }
-    }
+        [SerializeField]
+        float playerEnergy;
+        public float SavedPlayerEnergy
+        {
+            get { return playerEnergy; }
+            set { playerEnergy = value; }
+        }
 
-    [SerializeField]
-    int zone = 0;
-    public int SavedZone
-    {
-        get { return zone; }
-        set { zone = value; }
-    }
+        [SerializeField]
+        int playerCondition;
+        public int SavedPlayerCondition
+        {
+            get { return playerCondition; }
+            set { playerCondition = value; }
+        }
 
-    [SerializeField]
-    float slowTimeScale = 0.1f;
-    public float SlowTimeScale
-    {
-        get { return slowTimeScale; }
-        set { slowTimeScale = value; }
-    }
+        [SerializeField]
+        int zone = 0;
+        public int SavedZone
+        {
+            get { return zone; }
+            set { zone = value; }
+        }
+
+        [SerializeField]
+        float slowTimeScale = 0.05f;
+        public float SlowTimeScale
+        {
+            get { return slowTimeScale; }
+            set { slowTimeScale = value; }
+        }
 
 
+    } 
 }

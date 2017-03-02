@@ -2,30 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HelpPanel : MonoBehaviour {
-
-    private void Awake()
+namespace DaleranGames.ElectricDreams
+{
+    public class HelpPanel : MonoBehaviour
     {
-        GameManager.Instance.GameMenu.StateEnabled += OnEnterMenuState;
-        GameManager.Instance.GameMenu.StateDisabled += OnExitMenuState;
-        gameObject.SetActive(false);
-    }
+
+        private void Awake()
+        {
+            GameManager.Instance.GameMenu.StateEnabled += OnEnterMenuState;
+            GameManager.Instance.GameMenu.StateDisabled += OnExitMenuState;
+            gameObject.SetActive(false);
+        }
 
 
-    private void OnDestroy()
-    {
-        GameManager.Instance.GameMenu.StateEnabled -= OnEnterMenuState;
-        GameManager.Instance.GameMenu.StateDisabled -= OnExitMenuState;
-    }
+        private void OnDestroy()
+        {
+            GameManager.Instance.GameMenu.StateEnabled -= OnEnterMenuState;
+            GameManager.Instance.GameMenu.StateDisabled -= OnExitMenuState;
+        }
 
-    void OnEnterMenuState(GameState newState)
-    {
-        gameObject.SetActive(true);
-    }
+        void OnEnterMenuState(GameState newState)
+        {
+            gameObject.SetActive(true);
+        }
 
-    void OnExitMenuState (GameState newState)
-    {
-        gameObject.SetActive(false);
-    }
+        void OnExitMenuState(GameState newState)
+        {
+            gameObject.SetActive(false);
+        }
 
+    } 
 }

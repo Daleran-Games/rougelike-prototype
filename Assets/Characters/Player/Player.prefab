@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114717997829964866}
   - component: {fileID: 114853707305377130}
   - component: {fileID: 114601880713499386}
-  - component: {fileID: 58055805808936634}
+  - component: {fileID: 70261174405708164}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -56,9 +56,9 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 1
+  m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -66,8 +66,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58055805808936634
-CircleCollider2D:
+--- !u!70 &70261174405708164
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -77,9 +77,9 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.2}
-  serializedVersion: 2
-  m_Radius: 0.25
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 0.8}
+  m_Direction: 0
 --- !u!95 &95163528478275474
 Animator:
   serializedVersion: 3
@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a08ebcc45b25047960d8f1b1c29a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  condition: 4
-  maxCondition: 4
+  condition: 8
+  maxCondition: 8
 --- !u!114 &114717997829964866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,33 +121,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4dd31c1ed37d1469d0b3ee3ef1b575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  damage: 1
-  attackTime: 0.5
-  repairTime: 2
-  attackCost: 2
-  attackRange: 1
-  attackForce: 15
+  objCollider: {fileID: 0}
+  objectRB: {fileID: 0}
+  objRenderer: {fileID: 0}
+  objAnimator: {fileID: 0}
+  moveSpeed: 4
   moveCost: 1
-  healAmount: 4
-  healCost: 10
+  moveSounds:
+  - {fileID: 8300000, guid: aa8c84aca75105940bc1eab145d07168, type: 3}
+  damage: 1
+  attackTime: 0.1
+  attackSpeed: 12
+  attackCost: 2
+  repairTime: 2
+  repairAmount: 4
+  repairCost: 10
+  repairColor:
+    serializedVersion: 2
+    rgba: 0
+  repairSounds:
+  - {fileID: 8300000, guid: 1b78e0c548c61684998565ca4251a670, type: 3}
+  - {fileID: 8300000, guid: 71e411f807eee7741b82603ceab0edf7, type: 3}
   hitColor:
     serializedVersion: 2
     rgba: 4282861546
-  healColor:
-    serializedVersion: 2
-    rgba: 4278255400
   chargeColor:
     serializedVersion: 2
     rgba: 4294964224
-  flashDuration: 0.2
-  moveSounds:
-  - {fileID: 8300000, guid: aa8c84aca75105940bc1eab145d07168, type: 3}
-  healSounds:
-  - {fileID: 8300000, guid: 1b78e0c548c61684998565ca4251a670, type: 3}
-  - {fileID: 8300000, guid: 71e411f807eee7741b82603ceab0edf7, type: 3}
   chargeSounds:
   - {fileID: 8300000, guid: 250bec84b95808042a614af2ba9a6914, type: 3}
+  hitTime: 1
+  hitVelocity: 6
 --- !u!114 &114853707305377130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,8 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09e2189c9261714c8273b5aec0028fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: 50
-  maxEnergy: 50
+  energy: 100
+  maxEnergy: 100
 --- !u!212 &212704982875193148
 SpriteRenderer:
   m_ObjectHideFlags: 1
