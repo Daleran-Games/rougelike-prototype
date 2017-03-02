@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4711377285774280}
   - component: {fileID: 50514166554858398}
-  - component: {fileID: 61712944666014682}
   - component: {fileID: 212381915930942802}
   - component: {fileID: 95377860075752390}
   - component: {fileID: 114493795276905294}
   - component: {fileID: 114321581381930768}
-  m_Layer: 8
+  - component: {fileID: 58571495300868956}
+  m_Layer: 12
   m_Name: Wilderbot2
   m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -52,21 +52,21 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608498464857502}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &61712944666014682
-BoxCollider2D:
+  m_Constraints: 4
+--- !u!58 &58571495300868956
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -76,9 +76,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.15}
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_Radius: 0.25
 --- !u!95 &95377860075752390
 Animator:
   serializedVersion: 3
@@ -120,10 +120,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fcfbd5f690b1744b5c1e0b47694cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockingLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  objCollider: {fileID: 0}
+  objectRB: {fileID: 0}
+  objRenderer: {fileID: 0}
+  objAnimator: {fileID: 0}
+  moveSpeed: 4
   damage: 2
+  attackTime: 0.5
+  attackSpeed: 6
+  enemyAttacks:
+  - {fileID: 8300000, guid: ec847c8153c905842a4e9d2ca3eb2200, type: 3}
+  - {fileID: 8300000, guid: e9f1008f0bbaab240ba159e5ef108adc, type: 3}
   deadSprite: {fileID: 21300016, guid: e218b18af4933a0448232d9532a65087, type: 3}
   deadColor:
     serializedVersion: 2
@@ -131,12 +138,13 @@ MonoBehaviour:
   hitColor:
     serializedVersion: 2
     rgba: 4282861546
-  flashDuration: 0.2
-  enemyAttacks:
-  - {fileID: 8300000, guid: ec847c8153c905842a4e9d2ca3eb2200, type: 3}
-  - {fileID: 8300000, guid: e9f1008f0bbaab240ba159e5ef108adc, type: 3}
   enemyHits:
   - {fileID: 8300000, guid: a44ffd564f68d0f49ae0a36016e6b0e3, type: 3}
+  hitVelocity: 6
+  hitTime: 0.5
+  lootDropObject: {fileID: 1800877276596368, guid: f396e1c3a832b0f438540179f5c6a7f3,
+    type: 2}
+  lootChance: 0.509
 --- !u!212 &212381915930942802
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -23,12 +23,12 @@ GameObject:
   - component: {fileID: 61499585053389566}
   - component: {fileID: 114328119380580072}
   - component: {fileID: 114151311521383642}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ruin2
   m_TagString: Untagged
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4257638770468588
 Transform:

@@ -21,12 +21,12 @@ GameObject:
   - component: {fileID: 4972650455829754}
   - component: {fileID: 212171467984472444}
   - component: {fileID: 61901421680575624}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BridgeNorth
   m_TagString: Exit
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4972650455829754
 Transform:
@@ -54,7 +54,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
 --- !u!212 &212171467984472444
 SpriteRenderer:
   m_ObjectHideFlags: 1

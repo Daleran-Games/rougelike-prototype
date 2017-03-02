@@ -5,190 +5,232 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Player : MovingObject {
+namespace DaleranGames.ElectricDreams
+{
+    public delegate void PlayerEventHandler();
 
-    public int damage = 1;
-    public int attackCost = 2;
-    public int moveCost = 1;
-    public int healAmount = 4;
-    public int healCost = 10;
-    public Color32 hitColor;
-    public Color32 healColor;
-    public Color32 chargeColor;
-    public float flashDuration = 0.2f;
-    public AudioClip[] moveSounds;
-    public AudioClip[] healSounds;
-    public AudioClip[] chargeSounds;
-
-
-
-    Animator playerAnimator;
-    EnergyBehaviour playerEnergy;
-    ConditionBehaviour playerCondition;
-    SpriteRenderer playerRenderer;
-
-    private void Awake()
+    public class Player : MovingObject
     {
-        playerAnimator = gameObject.GetRequiredComponent<Animator>();
-        playerEnergy = gameObject.GetRequiredComponent<EnergyBehaviour>();
-        playerCondition = gameObject.GetRequiredComponent<ConditionBehaviour>();
-        playerRenderer = gameObject.GetRequiredComponent<SpriteRenderer>();
-    }
 
-    // Use this for initialization
-    protected override void Start ()
-    {
-        playerEnergy.Energy = GameManager.instance.playerSave.PlayerEnergy;
-        playerCondition.Condition = GameManager.instance.playerSave.PlayerCondition;
 
-        base.Start();
-	}
+        [Header("Movement Stats")]
+        [SerializeField]
+        protected float moveSpeed = 5f;
+        public float moveCost = 1f;
+        public AudioClip[] moveSounds;
+        [Space()]
 
-    private void OnEnable()
-    {
-        playerEnergy.EnergyStatChange += OnEnergyChange;
-        playerCondition.ConditionStatChange += OnConditionChange;
-    }
+        [Header("Combat Stats")]
+        public int damage = 1;
+        public float attackTime = 0.5f;
+        public float attackSpeed = 7f;
+        public float attackCost = 2f;
+        private float attackRange;
+        [Space()]
 
-    private void OnDisable()
-    {
-        GameManager.instance.playerSave.PlayerEnergy = playerEnergy.Energy;
-        GameManager.instance.playerSave.PlayerCondition = playerCondition.Condition;
-        playerEnergy.EnergyStatChange -= OnEnergyChange;
-        playerCondition.ConditionStatChange -= OnConditionChange;
-    }
+        [Header("Repair Ability Stats")]
+        public float repairTime = 2f;
+        public int repairAmount = 4;
+        public float repairCost = 10f;
+        public Color32 repairColor;
+        public AudioClip[] repairSounds;
+        [Space()]
 
-    // Update is called once per frame
-    void Update ()
-    {
-        if (!GameManager.instance.playersTurn) return;
+        [Header("Visual Stats")]
+        public Color32 hitColor;
+        public Color32 chargeColor;
+        public AudioClip[] chargeSounds;
+        public float hitTime = 1f;
+        public float hitVelocity = 6f;
 
-        int horizontal = 0;
-        int vertical = 0;
 
-        horizontal = (int)Input.GetAxisRaw("Horizontal");
-        vertical = (int)Input.GetAxisRaw("Vertical");
 
-        if (horizontal != 0)
-            vertical = 0;
-
-        if (horizontal != 0 || vertical != 0)
-            AttemptMove<ConditionBehaviour>(horizontal, vertical);
-        else if ((int)Input.GetAxisRaw("Heal") != 0)
-            HealAbility();
-        else if ((int)Input.GetAxisRaw("Skip") != 0)
-            SkipTurn();
-
-    }
-
-    protected override void AttemptMove<T>(int xDir, int yDir)
-    {
-        base.AttemptMove<T>(xDir, yDir);
-
-        RaycastHit2D hit;
-
-        if (Move(xDir,yDir, out hit))
+        float actionTimer = 0f;
+        public float ActionTimer
         {
-            SoundManager.instance.RandomSFX(moveSounds);
-            playerEnergy.Energy -= moveCost;
+            get { return actionTimer; }
+            private set
+            {
+                if (value < 0)
+                    actionTimer = 0;
+                else
+                    actionTimer = value;
+            }
         }
 
-        GameManager.instance.playersTurn = false;
-    }
+        public event PlayerEventHandler PlayerExitEvent;
+        public event PlayerEventHandler PlayerDeathEvent;
 
-    void HealAbility()
-    {
-        if (playerEnergy.Energy > healCost && playerCondition.Condition < playerCondition.MaxCondition)
+        EnergyBehaviour playerEnergy;
+        ConditionBehaviour playerCondition;
+        SaveData save;
+        bool isAttacking = false;
+
+        protected virtual void Start()
         {
-            playerEnergy.Energy -= healCost;
-            playerCondition.Condition += healAmount;
-            SoundManager.instance.RandomSFX(healSounds);
-            Debug.Log("Flashing Heal Color");
-            StartCoroutine(FlashColor(healColor));
-            GameManager.instance.playersTurn = false;
+            playerEnergy = gameObject.GetRequiredComponent<EnergyBehaviour>();
+            playerCondition = gameObject.GetRequiredComponent<ConditionBehaviour>();
+            playerEnergy.EnergyStatChange += OnEnergyChange;
+            playerCondition.ConditionStatChange += OnConditionChange;
+            save = GameManager.Instance.Save;
+            playerEnergy.Energy = save.SavedPlayerEnergy;
+            playerCondition.Condition = save.SavedPlayerCondition;
+            attackRange = attackSpeed * attackTime + 0.5f;
+
+            base.Awake();
         }
 
-    }
-
-    void SkipTurn()
-    {
-        GameManager.instance.playersTurn = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Exit")
+        private void OnDestroy()
         {
-            Restart();
-            enabled = false;
+            save.SavedPlayerEnergy = playerEnergy.Energy;
+            save.SavedPlayerCondition = playerCondition.Condition;
+            playerEnergy.EnergyStatChange -= OnEnergyChange;
+            playerCondition.ConditionStatChange -= OnConditionChange;
         }
 
-        if (collision.gameObject.GetComponent<Collectable>() !=null)
+        // Update is called once per frame
+        void Update()
         {
-            Collectable collect = collision.gameObject.GetComponent<Collectable>();
-            int energyAdded = collect.UseCollectable();
-            Debug.Log("Flashing Charge Color");
-            StartCoroutine(FlashColor(chargeColor));
-            SoundManager.instance.RandomSFX(chargeSounds);
-            playerEnergy.Energy += energyAdded;
+            if (ActionTimer > 0)
+                ActionTimer -= Time.deltaTime;
+
         }
 
-    }
-
-    protected override void OnCantMove<T>(T component)
-    {
-        ConditionBehaviour hitObject = component as ConditionBehaviour;
-        hitObject.Condition -= damage;
-        playerEnergy.Energy -= attackCost;
-        playerAnimator.SetTrigger("playerChop");
-    }
-
-    void Restart()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void OnEnergyChange (int change, bool increase)
-    {
-        if (increase)
+        public void MovePlayer (Vector2 direction)
         {
+            if (!SoundManager.Instance.efxSource.isPlaying)
+                SoundManager.Instance.RandomSFX(moveSounds);
 
-        }  
-        else
-            CheckIfGameOver();
-    }
+            playerEnergy.Energy -= moveCost * Time.deltaTime;
 
-    public void OnConditionChange (int change, bool increase)
-    {
-        if (increase)
-        {
-
-        }
-        else
-        {
-            playerAnimator.SetTrigger("playerHit");
-            StartCoroutine(FlashColor(hitColor));
-            CheckIfGameOver();
+            base.Move(direction, moveSpeed);
         }
 
-    }
-
-    private void CheckIfGameOver()
-    {
-        if (playerEnergy.Energy <= 0 || playerCondition.Condition <= 0)
+        public void StopPlayer()
         {
-            SoundManager.instance.PlaySingle(GameManager.instance.gameOverSound);
-            SoundManager.instance.musicSource.Stop();
-            GameManager.instance.GameOver();
+            if (!isAttacking)
+                base.Stop();
         }
 
-    }
+        public void UseLeftAbility()
+        {
+            StartCoroutine(AttackAbility());
+        }
 
-    IEnumerator FlashColor(Color32 color)
-    {
-        playerRenderer.color = color;
-        yield return new WaitForSeconds(flashDuration);
-        playerRenderer.color = Color.white;
+        public void UseRightAbility()
+        {
+            RepairAbility();
+        }
+
+        IEnumerator AttackAbility()
+        {
+
+            objAnimator.SetTrigger("playerChop");
+            playerEnergy.Energy -= attackCost;
+            ActionTimer += attackTime;
+
+            Vector2 attackDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+            StartCoroutine(MoveOverTime(attackDirection, attackSpeed, attackTime));
+
+            if (attackDirection.x > 0)
+                objRenderer.flipX = false;
+            else if (attackDirection.x < 0)
+                objRenderer.flipX = true;
+
+            isAttacking = true;
+
+            objCollider.enabled = false;
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, attackDirection, attackRange);
+
+            objCollider.enabled = true;
+
+            yield return new WaitForSeconds(attackTime);
+
+            if (hits.Length > 0)
+            {
+                foreach (RaycastHit2D h in hits)
+                {
+
+                    ConditionBehaviour cond = h.transform.gameObject.GetComponent<ConditionBehaviour>();
+
+                    if (cond != null && cond.Condition > 0)
+                        cond.Condition -= damage;
+                }
+            }
+
+            isAttacking = false;
+
+        }
+
+        void RepairAbility()
+        {
+            if (playerEnergy.Energy > repairCost && playerCondition.Condition < playerCondition.MaxCondition)
+            {
+                ActionTimer += repairTime;
+                playerEnergy.Energy -= repairCost;
+                playerCondition.Condition += repairAmount;
+                SoundManager.Instance.RandomSFX(repairSounds);
+                StartCoroutine(FlashColor(repairColor));
+            }
+
+        }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "Exit")
+            {
+                PlayerExitEvent();
+
+            }
+
+            if (collision.gameObject.GetComponent<Collectable>() != null)
+            {
+                Collectable collect = collision.gameObject.GetComponent<Collectable>();
+                int energyAdded = collect.UseCollectable();
+                StartCoroutine(FlashColor(chargeColor));
+                SoundManager.Instance.RandomSFX(chargeSounds);
+                playerEnergy.Energy += energyAdded;
+            }
+
+        }
+
+        public void OnEnergyChange(float change, bool increase)
+        {
+            if (increase)
+            {
+
+            }
+            else
+                CheckIfGameOver();
+        }
+
+        public void OnConditionChange(int change, bool increase)
+        {
+            if (increase)
+            {
+
+            }
+            else
+            {
+                objAnimator.SetTrigger("playerHit");
+                StartCoroutine(FlashColor(hitColor));
+                CheckIfGameOver();
+            }
+
+        }
+
+        private void CheckIfGameOver()
+        {
+            if (playerEnergy.Energy <= 0 || playerCondition.Condition <= 0)
+            {
+                SoundManager.Instance.musicSource.Stop();
+                PlayerDeathEvent();
+            }
+
+        }
+
     }
 
 }

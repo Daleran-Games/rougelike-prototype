@@ -2,52 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void IntStatChangeHandler(int amount, bool increase);
+namespace DaleranGames.ElectricDreams
+{
+    public delegate void IntStatChangeHandler(int amount, bool increase);
+    public delegate void FloatStatChangeHandler(float amount, bool increase);
 
-public class EnergyBehaviour : MonoBehaviour {
-
-    public event IntStatChangeHandler EnergyStatChange;
-
-    [SerializeField]
-    int energy = 0;
-    public int Energy
+    public class EnergyBehaviour : MonoBehaviour
     {
-        get { return energy; }
-        set
-        {
 
-            if (value > MaxEnergy)
+        public event FloatStatChangeHandler EnergyStatChange;
+
+        [SerializeField]
+        float energy = 0;
+        public float Energy
+        {
+            get { return energy; }
+            set
             {
-                energy = MaxEnergy;
-                if (EnergyStatChange != null)
-                    EnergyStatChange(MaxEnergy, true);
-            }
-            else
-            {
-                energy = value;
-                if (EnergyStatChange !=null )
+
+                if (value > MaxEnergy)
                 {
-                    bool up = (value > energy) ? true : false;
-                    EnergyStatChange(value, up);
+                    energy = MaxEnergy;
+                    if (EnergyStatChange != null)
+                        EnergyStatChange(MaxEnergy, true);
                 }
+                else
+                {
+                    energy = value;
+                    if (EnergyStatChange != null)
+                    {
+                        bool up = (value > energy) ? true : false;
+                        EnergyStatChange(value, up);
+                    }
+                }
+
             }
-                
         }
-    }
 
-    [SerializeField]
-    int maxEnergy = 150;
-    public int MaxEnergy
-    {
-        get { return maxEnergy; }
-        set
+        [SerializeField]
+        float maxEnergy = 150;
+        public float MaxEnergy
         {
-            if (value < 0)
-                maxEnergy = 0;
-            else
-                maxEnergy = value;
+            get { return maxEnergy; }
+            set
+            {
+                if (value < 0)
+                    maxEnergy = 0;
+                else
+                    maxEnergy = value;
+            }
         }
-    }
 
+
+    }
 
 }

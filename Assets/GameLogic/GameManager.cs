@@ -6,133 +6,181 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DalLib;
 
-public class GameManager : MonoBehaviour {
+namespace DaleranGames.ElectricDreams
+{
+    public delegate void StateChangeHandler(GameState state);
 
-    public static GameManager instance = null;
-    public BoardManager gameBoard;
-    public PlayerSave playerSave;
-    public AudioClip gameOverSound;
-    public float turnDelay = 0.1f;
-    public float levelStartDelay = 2f;
-
-    [HideInInspector]
-    public bool playersTurn = true;
-
-    UIManager ui;
-    int zone = 0;
-    public int Zone
+    public class GameManager : MonoBehaviour
     {
-        get { return zone; }
-        private set { zone = value; }
-    }
 
-            bool first = true;
-    bool enemiesMoving;
-    bool doingSetup = true;
-    List<Enemy> enemies;
-    public List<Enemy> Enemies
-    {
-        get { return enemies; }
-        private set { enemies = value; }
-    }
+        protected GameManager() { }
+        public static GameManager Instance = null;
 
 
-
-	// Use this for initialization
-	void Awake ()
-    {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
-
-        DontDestroyOnLoad(gameObject);
-        enemies = new List<Enemy>();
-        gameBoard = gameObject.GetRequiredComponent<BoardManager>();
-        playerSave = gameObject.GetRequiredComponent<PlayerSave>();
-
-	}
-
-    void OnLevelFinishedLoading (Scene scene, LoadSceneMode mode)
-    {
-        Zone++;
-        InitGame();
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnLevelFinishedLoading;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-    }
-
-    private void InitGame()
-    {
-        doingSetup = true;
-        ui = GameObject.Find("UICanvas").GetRequiredComponent<UIManager>();
-
-        ui.SetUpUI();
-
-        Invoke("OnFinishedLevelSetup", levelStartDelay);
-
-        enemies.Clear();
-        gameBoard.SetupScene(Zone);
-    }
-
-    void OnFinishedLevelSetup()
-    {
-        ui.HideLevelScreen();
-        doingSetup = false;
-    }
-
-    public void GameOver()
-    {
-        ui.ShowGameOverScreen();
-        enabled = false;
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-		if (playersTurn || enemiesMoving || doingSetup)
+        #region PersistentData
+        private SaveData save;
+        public SaveData Save
         {
-            return;
+            get { return save; }
+            set { save = value; }
         }
 
-        StartCoroutine(MoveEnemies());
-	}
-
-    public void AddEnemyToList(Enemy script)
-    {
-        enemies.Add(script);
-    }
-
-    public void RemoveEnemyFromList (Enemy script)
-    {
-        enemies.Remove(script);
-    }
-
-    IEnumerator MoveEnemies()
-    {
-        enemiesMoving = true;
-        yield return new WaitForSeconds(turnDelay);
-        if (enemies.Count == 0)
+        [SerializeField]
+        private ConfigSettings config;
+        public ConfigSettings Config
         {
-            yield return new WaitForSeconds(turnDelay);
+            get { return config; }
+            set { config = value; }
+        }
+        #endregion
+
+        #region StateMachine
+
+        public event StateChangeHandler ChangedState;
+
+        private GameState currentState;
+        public GameState CurrentState
+        {
+            get { return currentState; }
+            private set { currentState = value; }
         }
 
-        for (int i = 0; i <enemies.Count; i++)
+        private GameMenuState gameMenu;
+        public GameMenuState GameMenu
         {
-            enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(turnDelay);
+            get { return gameMenu; }
+            private set { gameMenu = value; }
         }
 
-        playersTurn = true;
-        enemiesMoving = false;
+        private LoadSceneState loadScene;
+        public LoadSceneState LoadScene
+        {
+            get { return loadScene; }
+            private set { loadScene = value; }
+        }
 
-    }
+        private PlayState play;
+        public PlayState Play
+        {
+            get { return play; }
+            private set { play = value; }
+        }
+
+        private GameOverState gameOver;
+        public GameOverState GameOver
+        {
+            get { return gameOver; }
+            private set { gameOver = value; }
+        }
+
+        #endregion
+
+        // Use this for initialization
+        void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else if (Instance != this)
+                Destroy(gameObject);
+
+            DontDestroyOnLoad(gameObject);
+
+            GameMenu = gameObject.GetOrAddComponent<GameMenuState>();
+            LoadScene = gameObject.GetOrAddComponent<LoadSceneState>();
+            Play = gameObject.GetOrAddComponent<PlayState>();
+            GameOver = gameObject.GetOrAddComponent<GameOverState>();
+
+            CurrentState = LoadScene;
+
+            LoadScene.enabled = false;
+            GameMenu.enabled = false;
+            Play.enabled = false;
+            GameOver.enabled = false;
+
+            Save = gameObject.GetOrAddComponent<SaveData>();
+
+            if (Config == null)
+                Debug.LogError("DG ERROR: No Config File Attached");
+
+        }
+
+        private void OnEnable()
+        {
+            LoadScene.StateDisabled += OnCompleteLoadScene;
+            Play.PlayerDieEvent += OnPlayerDeath;
+            Play.PlayerExitEvent += OnPlayerExitPlay;
+            Play.RequestMenuEvent += OnRequestMenu;
+            GameMenu.StateDisabled += OnReturnToGame;
+            GameOver.StateDisabled += OnCompleteGameOver;
+
+            CurrentState.enabled = true;
+        }
+
+        private void Start()
+        {
+            if (ChangedState != null)
+                ChangedState(CurrentState);
+
+            Debug.Log("Transitioning to: " + CurrentState.GetType().ToString());
+        }
+
+        private void OnDestroy()
+        {
+            LoadScene.StateDisabled -= OnCompleteLoadScene;
+            Play.PlayerDieEvent -= OnPlayerDeath;
+            Play.PlayerExitEvent -= OnPlayerExitPlay;
+            Play.RequestMenuEvent -= OnRequestMenu;
+            GameMenu.StateDisabled -= OnReturnToGame;
+            GameOver.StateDisabled -= OnCompleteGameOver;
+        }
+
+        void ChangeState(GameState newState)
+        {
+            CurrentState.enabled = false;
+            CurrentState = newState;
+            CurrentState.enabled = true;
+
+            if (ChangedState != null)
+                ChangedState(newState);
+
+            Debug.Log("Transitioning to: " + newState.GetType().ToString());
+        }
+
+        void OnCompleteLoadScene(GameState newState)
+        {
+            ChangeState(Play);
+        }
+
+        void OnPlayerExitPlay(GameState newState)
+        {
+            ChangeState(LoadScene);
+            SceneManager.LoadScene(1);
+
+        }
+
+        void OnPlayerDeath(GameState newState)
+        {
+            ChangeState(GameOver);
+        }
+
+        void OnRequestMenu(GameState newState)
+        {
+            ChangeState(GameMenu);
+        }
+
+        void OnReturnToGame(GameState newState)
+        {
+            ChangeState(Play);
+        }
+
+        void OnCompleteGameOver(GameState newState)
+        {
+            ChangeState(LoadScene);
+            SceneManager.LoadScene(1);
+        }
+
+
+
+
+    } 
 }

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItemType", menuName = "Data/ItemType", order = 101)]
-public class ItemType : ScriptableObject
+namespace DaleranGames.ElectricDreams
 {
-    public string itemName;
+    [CreateAssetMenu(fileName = "NewItemType", menuName = "Data/ItemType", order = 101)]
+    public class ItemType : ScriptableObject
+    {
+        public string itemName;
 
+    } 
 }

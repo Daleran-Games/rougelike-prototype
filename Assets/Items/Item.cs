@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour {
+namespace DaleranGames.ElectricDreams
+{
+    public class Item : MonoBehaviour
+    {
 
-    public ItemType type;
-    public float amount;
+        public ItemType type;
+        public float amount;
 
+    } 
 }

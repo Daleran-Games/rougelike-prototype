@@ -19,12 +19,12 @@ TagManager:
   - UI
   - 
   - 
-  - BlockingLayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Low
+  - Mid
+  - High
+  - UnitGround
+  - UnityFlying
+  - UnitTerrain
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: Units
     uniqueID: 3393972251
+    locked: 0
+  - name: Foreground
+    uniqueID: 1078972029
     locked: 0
