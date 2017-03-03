@@ -2,6 +2,7 @@
 
 namespace Dallib.CameraTools
 {
+    [RequireComponent(typeof(Camera))]
     public class FollowAndZoomCameraController : MonoBehaviour
     {
         [SerializeField] private float ROTStep = 16f;
@@ -32,19 +33,19 @@ namespace Dallib.CameraTools
                 ZoomCameraOut();
         }
 
-        public void TrackTarget()
+        void TrackTarget()
         {
             if (target != null)
                 transform.position = target.transform.position + offset;
         }
 
-        public void ZoomCameraIn()
+        void ZoomCameraIn()
         {
             cam.orthographicSize -= ROTStep;
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, min, max);
         }
 
-        public void ZoomCameraOut()
+        void ZoomCameraOut()
         {
             cam.orthographicSize += ROTStep;
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, min, max);

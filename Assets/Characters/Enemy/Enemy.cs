@@ -80,7 +80,7 @@ namespace DaleranGames.ElectricDreams
             {
                 Vector2 dirToTarget = (target.position - transform.position);
 
-                if (!isBeingHit)
+                if (!isBeingHit && !isAttacking)
                     Move(dirToTarget, moveSpeed);
                 
             }
@@ -121,9 +121,6 @@ namespace DaleranGames.ElectricDreams
                 RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, dir, attackRange);
                 objCollider.enabled = true;
 
-                yield return new WaitForSeconds(attackTime);
-
-
                 if (!isBeingHit)
                 {
                     if (hits.Length > 0)
@@ -136,8 +133,10 @@ namespace DaleranGames.ElectricDreams
                             if (cond != null && cond.Condition > 0)
                                 cond.Condition -= damage;
                         }
-                    } 
+                    }
                 }
+
+                yield return new WaitForSeconds(attackTime);
 
                 isAttacking = false;
 
