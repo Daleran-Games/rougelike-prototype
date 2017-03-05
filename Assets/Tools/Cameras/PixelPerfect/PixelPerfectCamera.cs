@@ -373,7 +373,6 @@ namespace Dallib.CameraTools
 
 
     }
-#endif
-
 
 }
+#endif
