@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: PurpleMarsh
   m_EditorClassIdentifier: 
   NumberOfCoulmns:
-    x: 8
-    y: 12
+    x: 12
+    y: 16
   NumberOfRows:
-    x: 8
-    y: 12
+    x: 6
+    y: 8
   backgroundBase: {fileID: 1444125792392704, guid: 1a0c691c7ec8fc54998ece9c8324ff3a,
     type: 2}
   backgroundColor:

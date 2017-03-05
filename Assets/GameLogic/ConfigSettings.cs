@@ -41,11 +41,57 @@ namespace DaleranGames.ElectricDreams
             set { inititalFixedDeltaTime = value; }
         }
 
+        [SerializeField]
         private float flashTime = 0.2f;
         public float FlashTime
         {
             get { return flashTime; }
             set { flashTime = value; }
+        }
+
+        [SerializeField]
+        private Color32 positiveColor = Color.green;
+        public Color32 PositiveColor
+        {
+            get
+            {
+                return positiveColor;
+            }
+
+            set
+            {
+                positiveColor = value;
+            }
+        }
+
+        [SerializeField]
+        private Color32 negativeColor = Color.red;
+        public Color32 NegativeColor
+        {
+            get
+            {
+                return negativeColor;
+            }
+
+            set
+            {
+                negativeColor = value;
+            }
+        }
+
+        [SerializeField]
+        Sprite defaultIcon;
+        public Sprite DefaultIcon
+        {
+            get
+            {
+                return defaultIcon;
+            }
+
+            set
+            {
+                defaultIcon = value;
+            }
         }
 
         private void Awake()
