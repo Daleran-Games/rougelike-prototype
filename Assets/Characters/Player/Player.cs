@@ -25,7 +25,7 @@ namespace DaleranGames.ElectricDreams
         public float attackTime = 0.5f;
         public float attackSpeed = 7f;
         public float attackCost = 2f;
-        private float attackRange;
+        public float attackRange;
         [Space()]
 
         [Header("Repair Ability Stats")]
@@ -58,13 +58,21 @@ namespace DaleranGames.ElectricDreams
             }
         }
 
+
         public event PlayerEventHandler PlayerExitEvent;
         public event PlayerEventHandler PlayerDeathEvent;
 
         EnergyBehaviour playerEnergy;
         ConditionBehaviour playerCondition;
         SaveData save;
+
         bool isAttacking = false;
+        public bool IsAttacking
+        {
+            get{return isAttacking;}
+            set{isAttacking = value;}
+        }
+
 
         protected virtual void Start()
         {
@@ -98,17 +106,21 @@ namespace DaleranGames.ElectricDreams
 
         public void MovePlayer (Vector2 direction)
         {
-            if (!SoundManager.Instance.efxSource.isPlaying)
-                SoundManager.Instance.RandomSFX(moveSounds);
 
-            playerEnergy.Energy -= moveCost * Time.deltaTime;
+            if (!IsAttacking)
+            {
+                if (!SoundManager.Instance.efxSource.isPlaying)
+                    SoundManager.Instance.RandomSFX(moveSounds);
 
-            base.Move(direction, moveSpeed);
+                playerEnergy.Energy -= moveCost * Time.deltaTime;
+                base.Move(direction, moveSpeed);
+            }
+
         }
 
         public void StopPlayer()
         {
-            if (!isAttacking)
+            if (!IsAttacking)
                 base.Stop();
         }
 
@@ -138,14 +150,12 @@ namespace DaleranGames.ElectricDreams
             else if (attackDirection.x < 0)
                 objRenderer.flipX = true;
 
-            isAttacking = true;
+            IsAttacking = true;
 
             objCollider.enabled = false;
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, attackDirection, attackRange);
 
             objCollider.enabled = true;
-
-            yield return new WaitForSeconds(attackTime);
 
             if (hits.Length > 0)
             {
@@ -159,7 +169,9 @@ namespace DaleranGames.ElectricDreams
                 }
             }
 
-            isAttacking = false;
+            yield return new WaitForSeconds(attackTime);
+
+            IsAttacking = false;
 
         }
 
