@@ -763,7 +763,6 @@ GameObject:
   - component: {fileID: 224661329537505276}
   - component: {fileID: 222405982020009144}
   - component: {fileID: 114157816966476656}
-  - component: {fileID: 114991845576822642}
   m_Layer: 5
   m_Name: HelpPanel
   m_TagString: Untagged
@@ -1417,14 +1416,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.95686275, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300004, guid: 2dc2eddd34fa11648970a9ed3c5e8607, type: 3}
+  m_Sprite: {fileID: 21300014, guid: ed77e99293ee09043afa3113b40eaf76, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1564,14 +1563,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9044118, g: 0.6897745, b: 0.305904, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300002, guid: 2dc2eddd34fa11648970a9ed3c5e8607, type: 3}
+  m_Sprite: {fileID: 21300002, guid: ed77e99293ee09043afa3113b40eaf76, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2342,17 +2341,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: w
---- !u!114 &114991845576822642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801119925361492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa26c06035690f34390e5ab75c9d8928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114993793040518402
 MonoBehaviour:
   m_ObjectHideFlags: 1

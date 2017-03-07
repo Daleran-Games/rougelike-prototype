@@ -32,6 +32,14 @@ namespace DaleranGames.ElectricDreams
             get { return config; }
             set { config = value; }
         }
+
+        [SerializeField]
+        private GameDatabase database;
+        public GameDatabase Database
+        {
+            get { return database; }
+            set { database = value; }
+        }
         #endregion
 
         #region StateMachine

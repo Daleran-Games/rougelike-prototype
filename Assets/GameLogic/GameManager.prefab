@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 75b8b7b64ff295042924fbc3dfbca309, type: 2}
+  database: {fileID: 11400000, guid: 25bf307b2157ca64dba9860c43f38597, type: 2}
 --- !u!114 &114920884423444588
 MonoBehaviour:
   m_ObjectHideFlags: 1
