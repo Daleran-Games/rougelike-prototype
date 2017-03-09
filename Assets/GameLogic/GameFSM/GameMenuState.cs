@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     public class GameMenuState : GameState
     {
@@ -37,7 +37,7 @@ namespace DaleranGames.ElectricDreams
         {
             Debug.Log("ResumingGame");
 
-            if (StateEnabled != null)
+            if (StateDisabled != null)
                 StateDisabled(this);
         }
 

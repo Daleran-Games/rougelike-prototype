@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.UI
 {
     public class MainMenuManager : MonoBehaviour
     {

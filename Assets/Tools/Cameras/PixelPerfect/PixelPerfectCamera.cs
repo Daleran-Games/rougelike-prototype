@@ -5,7 +5,7 @@ using System;
 using UnityEditor;
 #endif
 
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
     /**
 *  Adjusts the Camera component's orthographic size according to the supplied targeted size. If PixelPerfect is enabled, 
@@ -233,7 +233,7 @@ namespace Dallib.CameraTools
     }
 }
 #if UNITY_EDITOR
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
     [CustomEditor(typeof(PixelPerfectCamera))]
     [CanEditMultipleObjects]

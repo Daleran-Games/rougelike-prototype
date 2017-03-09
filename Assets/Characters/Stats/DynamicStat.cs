@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.RPGFramework
 {
     public delegate void DynamicStatChangeHandler<T>(T originalValue, T newValue);
 

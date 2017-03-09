@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.Characters
 {
     public abstract class MovingObject : MonoBehaviour
     {

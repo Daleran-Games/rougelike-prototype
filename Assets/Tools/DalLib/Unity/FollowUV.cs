@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DalLib
+namespace DaleranGames.Effects
 {
 
     public class FollowUV : MonoBehaviour

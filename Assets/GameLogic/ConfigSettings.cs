@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     [System.Serializable]
     [CreateAssetMenu(fileName = "NewConfigSettings", menuName = "Data/Config Settings", order = 99)]
@@ -93,6 +93,53 @@ namespace DaleranGames.ElectricDreams
                 defaultIcon = value;
             }
         }
+
+        [SerializeField]
+        Color32 defaultHitColor = Color.red;
+        public Color32 DefaultHitColor
+        {
+            get
+            {
+                return defaultHitColor;
+            }
+
+            set
+            {
+                defaultHitColor = value;
+            }
+        }
+
+        [SerializeField]
+        Color32 defaultChargeColor = Color.blue;
+        public Color32 DefaultChargeColor
+        {
+            get
+            {
+                return defaultChargeColor;
+            }
+
+            set
+            {
+                defaultChargeColor = value;
+            }
+        }
+
+        [SerializeField]
+        AudioClip[] defaultChargeSounds;
+        public AudioClip[] DefaultChargeSounds
+        {
+            get
+            {
+                return defaultChargeSounds;
+            }
+
+            set
+            {
+                defaultChargeSounds = value;
+            }
+        }
+
+
 
         private void Awake()
         {

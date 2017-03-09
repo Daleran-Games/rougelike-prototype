@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DaleranGames.Characters;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     public class PlayState : GameState
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.World
 {
     [CreateAssetMenu(fileName = "NewMapTemplate", menuName = "Data/Map Template", order = 100)]
     public class MapTemplate : ScriptableObject

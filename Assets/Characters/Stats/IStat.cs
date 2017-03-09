@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.RPGFramework
 {
     public interface IStat 
     {

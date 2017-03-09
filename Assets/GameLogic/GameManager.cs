@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using DalLib;
+using DaleranGames.RPGFramework;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     public delegate void StateChangeHandler(GameState state);
 

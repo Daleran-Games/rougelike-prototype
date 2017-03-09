@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
     /// <summary>
     /// The script adjusts the Canvas's scale factor so that it matches the PixelPerfectCamera's.

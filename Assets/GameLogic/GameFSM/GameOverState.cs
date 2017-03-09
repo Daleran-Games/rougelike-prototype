@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DaleranGames.Effects;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     public class GameOverState : GameState
     {
@@ -34,7 +35,7 @@ namespace DaleranGames.ElectricDreams
 
         void OnRestartGame()
         {
-            if (StateEnabled != null)
+            if (StateDisabled != null)
                 StateDisabled(this);
         }
 

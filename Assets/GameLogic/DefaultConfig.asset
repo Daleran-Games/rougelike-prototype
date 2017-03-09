@@ -14,3 +14,20 @@ MonoBehaviour:
   turnDelay: 0.1
   levelStartDelay: 2
   gameOverSound: {fileID: 8300000, guid: 66bbdacb61619714da884a2eac2cce51, type: 3}
+  inititalFixedDeltaTime: 0.02
+  flashTime: 0.2
+  positiveColor:
+    serializedVersion: 2
+    rgba: 4278255360
+  negativeColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  defaultIcon: {fileID: 21300052, guid: ed77e99293ee09043afa3113b40eaf76, type: 3}
+  defaultHitColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  defaultChargeColor:
+    serializedVersion: 2
+    rgba: 4294901760
+  defaultChargeSounds:
+  - {fileID: 8300000, guid: 250bec84b95808042a614af2ba9a6914, type: 3}

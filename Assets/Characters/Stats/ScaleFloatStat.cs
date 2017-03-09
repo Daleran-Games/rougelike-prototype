@@ -4,14 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.RPGFramework
 {
-    public delegate void ScaleStatHandler();
-
-    public abstract class ScaleFloatStat : DynamicStat<float>
+    [Serializable]
+    public class ScaleFloatStat : DynamicStat<float>
     {
 
-        public ScaleStatHandler ScaleStatDepleted;
+        public Action ScaleStatDepleted;
+
+        public ScaleFloatStat()
+        {
+            TypeStat = GameManager.Instance.Database.DefaultStatType;
+            StatValue = 0f;
+            StatMaxValue = 0f;
+        }
+
+        public ScaleFloatStat(float max)
+        {
+            TypeStat = GameManager.Instance.Database.DefaultStatType;
+            StatValue = max;
+            StatMaxValue = max;
+        }
+        public ScaleFloatStat(StatType type)
+        {
+            TypeStat = type;
+            StatValue = 0f;
+            StatMaxValue = 0f;
+        }
+
+        public ScaleFloatStat(StatType type, float max)
+        {
+            TypeStat = type;
+            StatValue = max;
+            StatMaxValue = max;
+        }
 
         public override float StatMinValue
         {
@@ -36,7 +62,7 @@ namespace DaleranGames.ElectricDreams
 
             set
             {
-                if (value < 0 && ScaleStatDepleted != null)
+                if (value <= 0 && ScaleStatDepleted != null)
                     ScaleStatDepleted();
 
                 base.StatValue = value;

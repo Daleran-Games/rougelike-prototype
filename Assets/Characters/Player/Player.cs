@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DaleranGames.Effects;
+using DaleranGames.World;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.Characters
 {
     public delegate void PlayerEventHandler();
 

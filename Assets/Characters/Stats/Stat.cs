@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.RPGFramework
 {
     public delegate void StatChangeHandler<T>(T newValue);
 
@@ -14,8 +14,14 @@ namespace DaleranGames.ElectricDreams
         public StatChangeHandler<T> StatChangedEvent;
 
         [SerializeField]
-        protected StatType typeStat;
-        public virtual StatType TypeStat { get; protected set; }
+        [ReadOnly]
+        private StatType typeStat;
+        public StatType TypeStat
+        {
+            get { return typeStat; }
+            protected set { typeStat = value; }
+
+        }
 
         [SerializeField]
         protected T statValue;
@@ -26,25 +32,10 @@ namespace DaleranGames.ElectricDreams
             {
                 statValue = value;
 
-                if (StatChangedEvent !=null)
+                if (StatChangedEvent != null)
                     StatChangedEvent(value);
             }
         }
 
-
-        protected virtual StatType GetStatType (string name)
-        {
-            foreach (StatType t in GameManager.Instance.Database.StatTypes)
-            {
-                if (t.StatName == name)
-                {
-                    return t;
-                }
-            }
-            Debug.LogError("DG ERROR: StatType "+ name + " not in GameDatabase");
-            return null;
-        }
-
-      
-    } 
+    }
 }

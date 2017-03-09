@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
     /// <summary>
     /// The script enables retroSnap or eliminates jittering when traslating an object under a non pixel perfect resolution.

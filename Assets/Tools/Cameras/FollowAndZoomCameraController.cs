@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
     [RequireComponent(typeof(Camera))]
     public class FollowAndZoomCameraController : MonoBehaviour

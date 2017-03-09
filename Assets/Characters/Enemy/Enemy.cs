@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DaleranGames.Effects;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.Characters
 {
     public class Enemy : MovingObject
     {

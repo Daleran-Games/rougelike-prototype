@@ -3,10 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.RPGFramework
 {
-    public abstract class RandomRangeFloatStat : DynamicStat<float> 
+    [Serializable]
+    public class RandomRangeFloatStat : DynamicStat<float> 
     {
+        public RandomRangeFloatStat()
+        {
+            TypeStat = GameManager.Instance.Database.DefaultStatType;
+            StatMinValue = 0f;
+            StatMaxValue = 0f;
+        }
+
+        public RandomRangeFloatStat(float min, float max)
+        {
+            TypeStat = GameManager.Instance.Database.DefaultStatType;
+            StatMinValue = min;
+            StatMaxValue = max;
+        }
+
+        public RandomRangeFloatStat(StatType type)
+        {
+            TypeStat = type;
+            StatMinValue = 0f;
+            StatMaxValue = 0f;
+        }
+
+        public RandomRangeFloatStat(StatType type, float min, float max)
+        {
+            TypeStat = type;
+            StatMinValue = min;
+            StatMaxValue = max;
+        }
 
         public override float StatValue
         {
@@ -29,6 +57,7 @@ namespace DaleranGames.ElectricDreams
                 Debug.Log("DG ERROR: Something is calling set on a random range stat value.");
             }
         }
+
 
     }
 

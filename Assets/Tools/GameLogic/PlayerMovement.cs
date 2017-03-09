@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DalLib;
 
-namespace ProjectShooter
+namespace DaleranGames.Characters
 {
     public class PlayerMovement : MonoBehaviour
     {

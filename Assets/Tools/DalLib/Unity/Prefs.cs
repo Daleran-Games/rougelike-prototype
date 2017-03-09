@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-namespace DalLib
+namespace DaleranGames.Tools
 {
 
     public delegate void PrefenceChange<T>(T val);

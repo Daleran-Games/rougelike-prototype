@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
 
     [RequireComponent(typeof(Camera))]

@@ -11,20 +11,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dda9708b1b7f2c408d1a6b43d136987, type: 3}
   m_Name: DefaultDatabase
   m_EditorClassIdentifier: 
-  StatTypes:
-  - {fileID: 11400000, guid: 7de258211d3baf240a1b0ab0326a1a7a, type: 2}
-  - {fileID: 11400000, guid: 7300b0a0e0054f94eaa4efa5da9126f0, type: 2}
-  - {fileID: 11400000, guid: 334f265c631b79744a53fb951e99571a, type: 2}
-  - {fileID: 11400000, guid: 26b4e62be31dd0641af1b20ff7bfadf4, type: 2}
-  - {fileID: 11400000, guid: 74aa97eddc11dec44807e1ffcbeec028, type: 2}
-  - {fileID: 11400000, guid: 55a74387697e6d4428cdab6d8546dfd8, type: 2}
-  - {fileID: 11400000, guid: eed25b1118bca58499922962bb7b723b, type: 2}
-  - {fileID: 11400000, guid: 4321f558db1bc1b4781a7d8947041473, type: 2}
-  DynamicStatTypes:
-  - {fileID: 11400000, guid: 39227082fa0ee6a42b27c7ac5c2b0cf6, type: 2}
-  - {fileID: 11400000, guid: 8632269062375924e9c68407042e9d36, type: 2}
-  - {fileID: 11400000, guid: 6826bcb20989f264e83e2eb926d429f9, type: 2}
-  - {fileID: 11400000, guid: de6f5fce026f08443b696997b0555e3d, type: 2}
-  - {fileID: 11400000, guid: ccf0d3cdc73d83948a32b1a9453f3746, type: 2}
-  - {fileID: 11400000, guid: c32ac7b5bb5d0f74496065a9b7fbc8be, type: 2}
-  - {fileID: 11400000, guid: 075e024d50f3f444e876ff1fe33a26ab, type: 2}
+  DefaultStatType: {fileID: 0}
+  ActionTime: {fileID: 11400000, guid: 3881e826a7aaf7e478d2fa6379782595, type: 2}
+  ActionTimer: {fileID: 11400000, guid: b9ff6a6e339529d4d8347a7f9b3e21a5, type: 2}
+  Armor: {fileID: 11400000, guid: 6f149ee6b236503479f2b25c10187912, type: 2}
+  Chance: {fileID: 0}
+  Condition: {fileID: 11400000, guid: 2ba1ce104dbcd004fa4981ed08f14960, type: 2}
+  CPUSpeed: {fileID: 11400000, guid: 7de258211d3baf240a1b0ab0326a1a7a, type: 2}
+  Damage: {fileID: 11400000, guid: e0b036e2dc9a0e2418389fa538032749, type: 2}
+  DamageSelf: {fileID: 0}
+  Energy: {fileID: 11400000, guid: d6db191f12bfdea4baf89c79a21ebcd4, type: 2}
+  EnergyCost: {fileID: 11400000, guid: 7300b0a0e0054f94eaa4efa5da9126f0, type: 2}
+  EnergyGeneration: {fileID: 11400000, guid: 334f265c631b79744a53fb951e99571a, type: 2}
+  EnergyUse: {fileID: 11400000, guid: 26b4e62be31dd0641af1b20ff7bfadf4, type: 2}
+  Range: {fileID: 11400000, guid: 74aa97eddc11dec44807e1ffcbeec028, type: 2}
+  Repair: {fileID: 11400000, guid: bfa636cc3c2f0df42b45e21a26711ac8, type: 2}
+  Speed: {fileID: 11400000, guid: 55a74387697e6d4428cdab6d8546dfd8, type: 2}
+  StopsMovement: {fileID: 11400000, guid: eed25b1118bca58499922962bb7b723b, type: 2}

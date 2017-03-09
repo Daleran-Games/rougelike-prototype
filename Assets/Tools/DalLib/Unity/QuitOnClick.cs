@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DalLib
+namespace DaleranGames.UI
 {
     public class QuitOnClick : MonoBehaviour
     {

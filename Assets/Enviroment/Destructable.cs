@@ -1,8 +1,10 @@
-﻿  using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DaleranGames.Effects;
+using DaleranGames.Characters;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.World
 {
     public class Destructable : MonoBehaviour
     {

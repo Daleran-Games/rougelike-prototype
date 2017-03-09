@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DalLib
+namespace DaleranGames.Tools
 {
 
     public class VectorPID

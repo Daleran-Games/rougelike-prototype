@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-namespace Dallib.CameraTools
+namespace DaleranGames.Effects
 {
     /// <summary>
     /// The script adjusts the Canvas's size so that it matches the UI camera's size.

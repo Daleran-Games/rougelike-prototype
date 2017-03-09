@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.RPGFramework
 {
     [CreateAssetMenu(fileName = "NewStatType", menuName = "Data/Stat Type", order = 101)]
     public class StatType : ScriptableObject

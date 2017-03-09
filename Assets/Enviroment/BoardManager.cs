@@ -4,7 +4,7 @@ using System;
 using Random = UnityEngine.Random;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.World
 {
     public class BoardManager : MonoBehaviour
     {

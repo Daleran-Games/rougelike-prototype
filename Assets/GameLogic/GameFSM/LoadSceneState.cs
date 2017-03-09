@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DaleranGames.World;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     public class LoadSceneState : GameState
     {
@@ -40,7 +41,7 @@ namespace DaleranGames.ElectricDreams
 
         void FinishedLoading()
         {
-            if (StateEnabled != null)
+            if (StateDisabled != null)
                 StateDisabled(this);
         }
 

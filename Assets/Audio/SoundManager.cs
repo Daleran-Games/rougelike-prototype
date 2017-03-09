@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DalLib;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames.Effects
 {
     public class SoundManager : MonoBehaviour
     {

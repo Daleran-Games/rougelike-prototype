@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 
-namespace DalLib
+namespace DaleranGames.UI
 {
     public class LoadSceneOnClick : MonoBehaviour
     {

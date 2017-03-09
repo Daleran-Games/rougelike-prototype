@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DalLib;
 
-namespace DaleranGames.ElectricDreams
+namespace DaleranGames
 {
     public delegate void ToggleKeyHandler(bool newValue);
     public delegate void EventKeyHandler();
