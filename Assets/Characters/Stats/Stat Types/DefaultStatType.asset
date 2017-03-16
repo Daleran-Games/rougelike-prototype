@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d671ae359309f444899207e8211807f, type: 3}
   m_Name: DefaultStatType
   m_EditorClassIdentifier: 
-  statName: DefualtStatName
+  statName: Default Stat
   description: Default Stat Description
-  units: m
-  icon: {fileID: 0}
+  units: 
+  icon: {fileID: 21300052, guid: ed77e99293ee09043afa3113b40eaf76, type: 3}
   statColor:
     serializedVersion: 2
     rgba: 4294967295

@@ -63,5 +63,13 @@ namespace UnityEngine
             }
             return false;
         }
+
+        public static float ClampPositive (float number)
+        {
+            if (number < 0f)
+                return 0f;
+            else
+                return number;
+        }
     }
 }

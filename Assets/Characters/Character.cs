@@ -5,7 +5,7 @@ using UnityEngine;
 using DaleranGames.RPGFramework;
 using DaleranGames.UI;
 
-namespace DaleranGames.Characters
+namespace DaleranGames.RPGFramework
 {
     public class Character : MonoBehaviour, INameable
     {
@@ -23,9 +23,13 @@ namespace DaleranGames.Characters
             }
         }
 
-        public ScaleFloatStat ActionTimer;
+        //public ScaleFloatStat ActionTimer;
 
         public Action CharacterDeathEvent;
+
+
+        public Action<FloatStatChanger> FloatChangeHandler;
+        public Action<FloatStatModifier> FloatModifyHandler;
         
     } 
 }

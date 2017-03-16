@@ -9,7 +9,7 @@ namespace DaleranGames.RPGFramework
     public class StatType : ScriptableObject
     {
         [SerializeField]
-        private string statName = "DefualtStatName";
+        private string statName = "DefualtStat";
 
         [SerializeField]
         [TextArea]
@@ -23,6 +23,12 @@ namespace DaleranGames.RPGFramework
 
         [SerializeField]
         private Color32 statColor = Color.white;
+
+        private static StatType defaultStatType;
+        public static StatType DefaultStatType
+        {
+            get { return defaultStatType; }
+        }
 
         public string StatName
         {
@@ -87,6 +93,11 @@ namespace DaleranGames.RPGFramework
             {
                 units = value;
             }
+        }
+
+        private void Awake()
+        {
+            defaultStatType = ScriptableObject.CreateInstance<StatType>();
         }
     }
 }

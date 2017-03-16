@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dda9708b1b7f2c408d1a6b43d136987, type: 3}
   m_Name: DefaultDatabase
   m_EditorClassIdentifier: 
-  DefaultStatType: {fileID: 0}
+  DefaultType: {fileID: 11400000, guid: 41fdd01490fc1f942a7c32668f3b42a9, type: 2}
   ActionTime: {fileID: 11400000, guid: 3881e826a7aaf7e478d2fa6379782595, type: 2}
   ActionTimer: {fileID: 11400000, guid: b9ff6a6e339529d4d8347a7f9b3e21a5, type: 2}
   Armor: {fileID: 11400000, guid: 6f149ee6b236503479f2b25c10187912, type: 2}
@@ -21,9 +21,8 @@ MonoBehaviour:
   Damage: {fileID: 11400000, guid: e0b036e2dc9a0e2418389fa538032749, type: 2}
   DamageSelf: {fileID: 0}
   Energy: {fileID: 11400000, guid: d6db191f12bfdea4baf89c79a21ebcd4, type: 2}
-  EnergyCost: {fileID: 11400000, guid: 7300b0a0e0054f94eaa4efa5da9126f0, type: 2}
-  EnergyGeneration: {fileID: 11400000, guid: 334f265c631b79744a53fb951e99571a, type: 2}
-  EnergyUse: {fileID: 11400000, guid: 26b4e62be31dd0641af1b20ff7bfadf4, type: 2}
+  MaxEnergy: {fileID: 11400000, guid: 26b4e62be31dd0641af1b20ff7bfadf4, type: 2}
+  EnergyRate: {fileID: 11400000, guid: 334f265c631b79744a53fb951e99571a, type: 2}
   Range: {fileID: 11400000, guid: 74aa97eddc11dec44807e1ffcbeec028, type: 2}
   Repair: {fileID: 11400000, guid: bfa636cc3c2f0df42b45e21a26711ac8, type: 2}
   Speed: {fileID: 11400000, guid: 55a74387697e6d4428cdab6d8546dfd8, type: 2}

@@ -1,10 +1,26 @@
 fileFormatVersion: 2
 guid: 4dda9708b1b7f2c408d1a6b43d136987
-timeCreated: 1488832414
+timeCreated: 1489199820
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - DefaultType: {fileID: 11400000, guid: 41fdd01490fc1f942a7c32668f3b42a9, type: 2}
+  - ActionTime: {fileID: 11400000, guid: 3881e826a7aaf7e478d2fa6379782595, type: 2}
+  - ActionTimer: {fileID: 11400000, guid: b9ff6a6e339529d4d8347a7f9b3e21a5, type: 2}
+  - Armor: {fileID: 11400000, guid: 6f149ee6b236503479f2b25c10187912, type: 2}
+  - Chance: {instanceID: 0}
+  - Condition: {instanceID: 0}
+  - CPUSpeed: {instanceID: 0}
+  - Damage: {instanceID: 0}
+  - DamageSelf: {instanceID: 0}
+  - Energy: {fileID: 11400000, guid: d6db191f12bfdea4baf89c79a21ebcd4, type: 2}
+  - MaxEnergy: {fileID: 11400000, guid: 26b4e62be31dd0641af1b20ff7bfadf4, type: 2}
+  - EnergyRate: {fileID: 11400000, guid: 334f265c631b79744a53fb951e99571a, type: 2}
+  - Range: {instanceID: 0}
+  - Repair: {instanceID: 0}
+  - Speed: {instanceID: 0}
+  - StopsMovement: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
