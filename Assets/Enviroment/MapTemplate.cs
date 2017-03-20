@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AdvancedInspector;
 
 namespace DaleranGames.World
 {
     [CreateAssetMenu(fileName = "NewMapTemplate", menuName = "Data/Map Template", order = 100)]
+    [AdvancedInspector(true)]
     public class MapTemplate : ScriptableObject
     {
-
 
         [Header("Map Size")]
         public Vector2Int NumberOfCoulmns = new Vector2Int(8, 10);

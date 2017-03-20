@@ -7,6 +7,8 @@ namespace DaleranGames.RPGFramework
 {
     public abstract class StatComponent : MonoBehaviour
     {
-        
+
+
+
     } 
 }

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: PurpleMarsh
   m_EditorClassIdentifier: 
   NumberOfCoulmns:
-    x: 12
-    y: 16
+    x: 16
+    y: 24
   NumberOfRows:
-    x: 6
-    y: 8
+    x: 16
+    y: 24
   backgroundBase: {fileID: 1444125792392704, guid: 1a0c691c7ec8fc54998ece9c8324ff3a,
     type: 2}
   backgroundColor:
@@ -32,22 +32,22 @@ MonoBehaviour:
   - {fileID: 1694894323926288, guid: be0235446f761144b914d0de652c9302, type: 2}
   - {fileID: 1858494148933370, guid: 48a2b155bf05b834884480b9e55a2f9b, type: 2}
   structureCount:
-    x: 2
-    y: 4
+    x: 16
+    y: 24
   plantTiles:
   - {fileID: 1207152768285870, guid: c71787216c367d042a752c213feb4003, type: 2}
   - {fileID: 1165716301244482, guid: 644a5ac5e0e855e4b83ef78275c57845, type: 2}
   - {fileID: 1017421014092008, guid: 0077c91826499424aa6188eba039e60c, type: 2}
   plantCount:
-    x: 6
-    y: 14
+    x: 32
+    y: 64
   energyTiles:
   - {fileID: 1259654238008514, guid: 3359d4b355a9d0c4bb9eb10ac73c7c9f, type: 2}
   - {fileID: 1839147810888106, guid: 18d455fa344efb64f873748e52f8b459, type: 2}
   - {fileID: 1839147810888106, guid: 05203217a0bf78642b378c0f4917b42c, type: 2}
   energyCount:
-    x: 1
-    y: 3
+    x: 2
+    y: 8
   enemies:
   - {fileID: 1818181683064284, guid: 372bdd19c2cf6c44b832e786c8bcc4f0, type: 2}
   - {fileID: 1608498464857502, guid: 6dea6cc7464cffe4e8e6373cccec4777, type: 2}

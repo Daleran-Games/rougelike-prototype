@@ -24,12 +24,6 @@ namespace DaleranGames.RPGFramework
         [SerializeField]
         private Color32 statColor = Color.white;
 
-        private static StatType defaultStatType;
-        public static StatType DefaultStatType
-        {
-            get { return defaultStatType; }
-        }
-
         public string StatName
         {
             get
@@ -95,9 +89,5 @@ namespace DaleranGames.RPGFramework
             }
         }
 
-        private void Awake()
-        {
-            defaultStatType = ScriptableObject.CreateInstance<StatType>();
-        }
     }
 }

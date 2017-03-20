@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace UnityEngine
+
+namespace DaleranGames
 {
 
     [System.Serializable]
-    public struct Vector2Int
+    public class Vector2Int
     {
-
         [SerializeField]
         public int x;
         [SerializeField]

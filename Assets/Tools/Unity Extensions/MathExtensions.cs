@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Linq;
+using DaleranGames;
 
 namespace UnityEngine
 {
     public static class MathExtensions
     {
         /// <summary>
-        /// Casts a Vector2 to a Vector2Int
+        /// Casts a Vector2 to a Point
         /// </summary>
         /// <param name="v">Vector2 to cast</param>
         /// <returns>Vector2Int</returns>
