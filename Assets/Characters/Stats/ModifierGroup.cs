@@ -8,7 +8,7 @@ namespace DaleranGames.RPGFramework
 {
 
     [AdvancedInspector]
-    public class StatCollection
+    public class ModifierGroup
     {
 
     }

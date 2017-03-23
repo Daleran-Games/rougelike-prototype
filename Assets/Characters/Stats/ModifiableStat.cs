@@ -2,52 +2,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AdvancedInspector;
 
 namespace DaleranGames.RPGFramework
 {
-    public class ModifiableStat : Stat
+    [AdvancedInspector]
+    public class ModifiableStat : Stat, IModifiable
     {
-        [SerializeField]
-        protected float adder = 0f;
-        [SerializeField]
-        protected float multiplier = 0f;
-        [SerializeField]
-        protected float modifiedOverride = 0f;
 
-        public ModifiableStat (StatType modifiableStatType, float baseValue) : base(modifiableStatType)
+        [Inspect]
+        List<Modifier> modifiers = new List<Modifier>();
+
+        public ModifiableStat() : base()
         {
-            value = baseValue;
+            ModifiedValue = GetNewModifiedValue();
+        }
+
+        public ModifiableStat (StatType type, float initialBaseValue) : base(type)
+        {
+            BaseValue = initialBaseValue;
+            ModifiedValue = GetNewModifiedValue();
+        }
+
+        float modifiedValue;
+        float ModifiedValue
+        {
+            get { return modifiedValue; }
+            set
+            {
+                if (StatModified != null)
+                    StatModified(modifiedValue, value);
+
+                modifiedValue = value;
+            }
         }
 
         public override float Value
         {
-            get
-            {
-                if (modifiedOverride != 0)
-                    return BaseValue + adder * (1 + multiplier);
-                else
-                    return modifiedOverride;
-            }
-
-            set
-            {
-                if (StatModified != null)
-                    StatModified(Value, value);
-
-                modifiedOverride = value;
-            }
+            get { return ModifiedValue; }
         }
 
-        public virtual float BaseValue
+        public override float BaseValue
         {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                base.Value = value;
-            }
+            get { return base.BaseValue; }
+            set { base.BaseValue = value; }
         }
 
         protected Action<float, float> statModified;
@@ -57,44 +55,62 @@ namespace DaleranGames.RPGFramework
             set { statModified = value; }
         }
 
-        public override void ProcessModifier(Modifier modifier)
+        public virtual void AddModifier(Modifier mod)
         {
-            base.ProcessModifier(modifier);
-
-            if (modifier.StatEffected == Type && modifier.Permanent == false)
+            if (mod.StatEffected == StatType)
             {
-                float originalModifier = this.Value;
-
-                if (modifier.ModifyBy == Operation.Add)
-                    adder += modifier.Amount;
-                else if (modifier.ModifyBy == Operation.Multiply)
-                    multiplier += (modifier.Amount);
-                else if (modifier.ModifyBy == Operation.Set)
-                    modifiedOverride = modifier.Amount;
-
-                if (StatModified != null)
-                    StatModified(originalModifier, Value);
+                modifiers.Add(mod);
+                ModifiedValue = GetNewModifiedValue();
             }
         }
 
-        public virtual void UndoModifier(Modifier modifier)
+        public virtual void RemoveModifier(Modifier mod)
         {
-            if (modifier.StatEffected == Type && modifier.Permanent == false)
+            if (mod.StatEffected == StatType)
             {
-                float originalModifier = this.Value;
-
-                if (modifier.ModifyBy == Operation.Add)
-                    adder -= modifier.Amount;
-                else if (modifier.ModifyBy == Operation.Multiply)
-                    multiplier -= (modifier.Amount);
-                else if (modifier.ModifyBy == Operation.Set)
-                    modifiedOverride = 0f;
-
-                if (StatModified != null)
-                    StatModified(originalModifier, Value);
+                modifiers.Remove(mod);
+                ModifiedValue = GetNewModifiedValue();
             }
+        }
+
+        public virtual void ClearModifiers()
+        {
+            modifiers.Clear();
+            ModifiedValue = GetNewModifiedValue();
+        }
+
+        protected virtual float GetNewModifiedValue ()
+        {
+            float result = 0f;
+
+            if (modifiers.Count > 0)
+            {
+
+                float bonusToAdd = 0f;
+                float finalMultiplier = 0f;
+
+                for (int i = 0; i < modifiers.Count; i++)
+                {
+                        if (modifiers[i].ModOperator == Modifier.Operator.Add)
+                        {
+                            bonusToAdd += modifiers[i].Amount;
+                        }
+                        else if (modifiers[i].ModOperator == Modifier.Operator.Multiply)
+                        {
+                            finalMultiplier += modifiers[i].Amount;
+                        }
+                        else if (modifiers[i].ModOperator == Modifier.Operator.Set)
+                        {
+                            return modifiers[i].Amount;                     
+                        }                 
+                }
+                result = (BaseValue + bonusToAdd) * (1 + finalMultiplier);
+            }
+            else
+                result = BaseValue;
+
+            return result;
         }
 
     }
-
 }

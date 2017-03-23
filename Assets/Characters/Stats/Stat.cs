@@ -2,20 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AdvancedInspector;
 
 namespace DaleranGames.RPGFramework
 {
+    [AdvancedInspector]
     public class Stat
     {
-        protected Stat (StatType statType)
+
+        public Stat()
+        {
+            type = StatType.None;
+            BaseValue = 0f;
+        }
+
+        public Stat(StatType statType)
         {
             type = statType;
+            BaseValue = 0f;
         }
 
         public Stat(StatType statType, float initialValue)
         {
-            value = initialValue;
-            type = statType;
+            BaseValue = initialValue;
+            StatType = statType;
         }
 
         protected Action<float, float> statChanged;
@@ -25,41 +35,36 @@ namespace DaleranGames.RPGFramework
             set { statChanged = value; }
         }
 
-        [SerializeField]
-        [ReadOnly]
         protected StatType type;
-        public virtual StatType Type
+        [Inspect]
+        public virtual StatType StatType
         {
             get { return type; }
             protected set { type = value; }
         }
 
-        [SerializeField]
-        protected float value;
-        public virtual float Value
+
+        [Inspect]
+        float trueValue;
+        [Inspect]
+        public virtual float BaseValue
         {
-            get { return value; }
+            get { return trueValue; }
             set
             {
                 if (StatChanged != null)
-                    StatChanged(this.value, value);
+                    StatChanged(trueValue, value);
 
-                this.value = value;
+                trueValue = value;
             }
         }
 
-        public virtual void ProcessModifier(Modifier modifier)
+        [Inspect]
+        public virtual float Value
         {
-            if (modifier.StatEffected == Type && modifier.Permanent == true)
-            {
-                if (modifier.ModifyBy == Operation.Add)
-                    Value += modifier.Amount;
-                else if (modifier.ModifyBy == Operation.Multiply)
-                    Value *= (1 + modifier.Amount);
-                else if (modifier.ModifyBy == Operation.Set)
-                    Value = modifier.Amount;
-            }
+            get { return trueValue; }
         }
+
     }
 
 }

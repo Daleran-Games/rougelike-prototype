@@ -6,7 +6,7 @@ using UnityEngine;
 namespace DaleranGames.RPGFramework
 {
     [CreateAssetMenu(fileName = "NewStatType", menuName = "Data/Stat Type", order = 101)]
-    public class StatType : ScriptableObject
+    public class StatAsset : ScriptableObject
     {
         [SerializeField]
         private string statName = "DefualtStat";

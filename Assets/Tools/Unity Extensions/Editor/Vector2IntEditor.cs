@@ -22,8 +22,6 @@ namespace DaleranGames
             float width = EditorGUIUtility.labelWidth;
             EditorGUIUtility.labelWidth = VECTOR_FIELD_WIDTH;
 
-
-
             GUILayout.BeginHorizontal();
             Vector2Int[] values = field.GetValues<Vector2Int>();
 

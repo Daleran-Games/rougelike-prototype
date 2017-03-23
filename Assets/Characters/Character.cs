@@ -27,7 +27,6 @@ namespace DaleranGames.RPGFramework
 
         public Action CharacterDeathEvent;
 
-        public StatCollection CharacterStats = new StatCollection();
 
         private void Start()
         {

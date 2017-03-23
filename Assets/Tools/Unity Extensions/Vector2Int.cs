@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace DaleranGames
 {
 
     [System.Serializable]
-    public class Vector2Int
+    public struct Vector2Int : IFormattable, IEquatable<Vector2Int>, IComparable<Vector2Int>, IComparable
     {
         [SerializeField]
         public int x;
@@ -43,6 +44,11 @@ namespace DaleranGames
             return string.Format("({0}, {1})", x, y);
         }
 
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return ToString();
+        }
+
         public bool Equals(Vector2Int other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -55,6 +61,24 @@ namespace DaleranGames
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Vector2Int) && Equals((Vector2Int)obj);
+        }
+
+        public int CompareTo(Vector2Int other)
+        {
+
+            if (other.sqrMagnitude() > sqrMagnitude())
+                return 1;
+            else if (Equals(this,other))
+                return 0;
+            else
+                return -1;
+
+        }
+
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj);        
+
         }
 
         public override int GetHashCode()
@@ -85,6 +109,26 @@ namespace DaleranGames
             return new Vector2Int(l.x - r.x, l.y - r.y);
         }
 
+        public static bool operator > (Vector2Int l, Vector2Int r)
+        {
+            return l.CompareTo(r) == 1;
+        }
+
+        public static bool operator < (Vector2Int l, Vector2Int r)
+        {
+            return l.CompareTo(r) == -1;
+        }
+
+        public static bool operator >=(Vector2Int l, Vector2Int r)
+        {
+            return l.CompareTo(r) >= 0;
+        }
+
+        public static bool operator <=(Vector2Int l, Vector2Int r)
+        {
+            return l.CompareTo(r) <= 0;
+        }
+
         static public explicit operator Vector2(Vector2Int v2)
         {
             return new Vector2(v2.x, v2.y);
@@ -95,14 +139,16 @@ namespace DaleranGames
             return new Vector3(v2.x, v2.y, 0f);
         }
 
-        public float magnitude(Vector2Int v2)
+        public float magnitude()
         {
-            return Mathf.Sqrt((v2.x * v2.x) + (v2.y * v2.y));
+            return Mathf.Sqrt((x * x) + (y * y));
         }
 
-        public int sqrMagnitude(Vector2Int v2)
+        public int sqrMagnitude()
         {
-            return ((v2.x * v2.x) + (v2.y * v2.y));
+            return ((x * x) + (y * y));
         }
+
+
     }
 }

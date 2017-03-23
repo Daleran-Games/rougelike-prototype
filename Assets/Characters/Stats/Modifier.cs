@@ -2,29 +2,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AdvancedInspector;
 
 namespace DaleranGames.RPGFramework
 {
-    [Serializable]
-    public abstract class Modifier
+
+    [AdvancedInspector]
+    public class Modifier
     {
-        [SerializeField]
+
+        public enum Operator
+        {
+            Add = 0,
+            Multiply = 1,
+            Set = 2
+        }
+
+        public Modifier()
+        {
+            StatEffected = StatType.None;
+            ModOperator = Operator.Add;
+            Amount = 0f;
+        }
+
+        public Modifier(StatType effectedType, Operator op, float amt)
+        {
+            StatEffected = effectedType;
+            ModOperator = op;
+            Amount = amt;        
+        }
+
         protected StatType statEffected;
-        public StatType StatEffected { get { return statEffected; } }
+        [Inspect]
+        public StatType StatEffected
+        {
+            get { return statEffected; }
+            protected set { statEffected = value; }
+        }
 
-        [SerializeField]
-        protected bool permanent;
-        public bool Permanent { get { return permanent; } }
+        protected Operator modOperator;
+        [Inspect]
+        public Operator ModOperator
+        {
+            get { return modOperator; }
+            protected set { modOperator = value; }
+        }
 
-        [SerializeField]
-        protected Operation modifyBy;
-        public Operation ModifyBy { get { return modifyBy; } }
-
-        [SerializeField]
         protected float amount;
-        public float Amount { get { return amount; } }
+        [Inspect]
+        public float Amount
+        {
+            get { return amount; }
+            protected set { amount = value; }
+        }
 
-
-
-    } 
+    }
 }
