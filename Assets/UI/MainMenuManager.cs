@@ -10,13 +10,13 @@ namespace DaleranGames.ElectricDreams
 
         public int FirstScene = 1;
 
-        private void OnEnable()
+        private void Start()
         {
             GameInput.Instance.ContinueEvent += OnContinueKey;
             GameInput.Instance.QuitEvent += OnQuitKey;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             GameInput.Instance.ContinueEvent -= OnContinueKey;
             GameInput.Instance.QuitEvent -= OnQuitKey;
@@ -24,15 +24,11 @@ namespace DaleranGames.ElectricDreams
 
         public void OnContinueKey()
         {
-            GameInput.Instance.ContinueEvent -= OnContinueKey;
-            GameInput.Instance.QuitEvent -= OnQuitKey;
             SceneManager.LoadScene(FirstScene);
         }
 
         public void OnQuitKey()
         {
-            GameInput.Instance.ContinueEvent -= OnContinueKey;
-            GameInput.Instance.QuitEvent -= OnQuitKey;
             Application.Quit();
         }
 

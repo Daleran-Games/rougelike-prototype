@@ -15,33 +15,33 @@ namespace DaleranGames.ElectricDreams
 
         public static GameInput Instance = null;
 
-        private EventKey continueEvent = new EventKey("Skip");
+        private EventKey continueEvent;
         public event EventKeyHandler ContinueEvent;
 
-        private EventKey quitKey = new EventKey("Cancel");
+        private EventKey quitKey;
         public event EventKeyHandler QuitEvent;
 
-        private ControlAxis horizontal = new ControlAxis("Horizontal");
+        private ControlAxis horizontal;
         public ControlAxis Horizontal
         {
             get { return horizontal; }
             set { horizontal = value; }
         }
 
-        private ControlAxis vertical = new ControlAxis("Vertical");
+        private ControlAxis vertical;
         public ControlAxis Vertical
         {
             get { return vertical; }
             set { vertical = value; }
         }
 
-        public EventKey leftAbility = new EventKey("Fire1");
+        public EventKey leftAbility;
         public event EventKeyHandler LeftAbilityEvent;
 
-        public EventKey rightAbility = new EventKey("Fire2");
+        public EventKey rightAbility;
         public event EventKeyHandler RightAbilityEvent;
 
-        public EventKey skipTurn = new EventKey("Skip");
+        public EventKey skipTurn;
 
         private void Awake()
         {
@@ -51,6 +51,15 @@ namespace DaleranGames.ElectricDreams
                 Destroy(gameObject);
 
             DontDestroyOnLoad(gameObject);
+
+            continueEvent = new EventKey("Skip");
+            quitKey = new EventKey("Cancel");
+            horizontal = new ControlAxis("Horizontal");
+            vertical = new ControlAxis("Vertical");
+            leftAbility = new EventKey("Fire1");
+            rightAbility = new EventKey("Fire2");
+            skipTurn = new EventKey("Skip");
+
         }
 
 

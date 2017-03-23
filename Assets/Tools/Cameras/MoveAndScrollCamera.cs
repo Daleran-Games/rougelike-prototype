@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DaleranGames.ElectricDreams
+namespace Dallib.CameraTools
 {
 
+    [RequireComponent(typeof(Camera))]
     public class MoveAndScrollCamera : MonoBehaviour
     {
 
@@ -45,13 +46,13 @@ namespace DaleranGames.ElectricDreams
                 ZoomCameraOut();
         }
 
-        public void ZoomCameraIn()
+        void ZoomCameraIn()
         {
             cam.orthographicSize -= ROTStep;
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, min, max);
         }
 
-        public void ZoomCameraOut()
+        void ZoomCameraOut()
         {
             cam.orthographicSize += ROTStep;
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, min, max);

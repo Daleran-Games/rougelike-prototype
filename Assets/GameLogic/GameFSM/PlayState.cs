@@ -16,11 +16,16 @@ namespace DaleranGames.ElectricDreams
         public bool PlayerIsMoving
         {
             get { return playerIsMoving; }
-            private set
-            {
-                playerIsMoving = value;
-            }
+            private set{ playerIsMoving = value; }
         }
+
+        bool playerHighlightingTarget = false;
+        public bool PlayerHighlightingTarget
+        {
+            get { return playerHighlightingTarget; }
+            private set { playerHighlightingTarget = value; }
+        }
+
 
 
 
@@ -46,6 +51,25 @@ namespace DaleranGames.ElectricDreams
             GameInput.Instance.QuitEvent += OnRequestMenu;
             player.PlayerExitEvent += OnPlayerExit;
             player.PlayerDeathEvent += OnPlayerDeath;
+
+        }
+
+        private void Update()
+        {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.transform.position, player.attackRange);
+            PlayerHighlightingTarget = false;
+
+            if (hits.Length > 0)
+            {
+                foreach (RaycastHit2D h in hits)
+                {
+
+                    ConditionBehaviour cond = h.transform.gameObject.GetComponent<ConditionBehaviour>();
+
+                    if (cond != null && cond.Condition > 0 && cond.tag != "Player")
+                        PlayerHighlightingTarget = true;
+                }
+            }
 
         }
 

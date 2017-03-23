@@ -66,7 +66,7 @@ namespace DaleranGames.ElectricDreams
 
             BuildBasicTerrain();
             PlaceExitAndBridge();
-            LayoutObjectsAlongPath(template.roadBase, template.roadDetails, template.roadDetailChance, new Vector2Int(EntrancePosition.x, EntrancePosition.y + 1), ExitPosition);
+            LayoutObjectsAlongPath(template.roadBase, template.roadDetails, template.roadDetailChance, new Vector2Int(EntrancePosition.x, EntrancePosition.y + 1), new Vector2Int(ExitPosition.x,ExitPosition.y-1));
             InitializeGridPositions();
 
             LayoutObjectsAtRandom(template.structureTiles, template.structureCount.x, template.structureCount.y);
@@ -156,14 +156,13 @@ namespace DaleranGames.ElectricDreams
             //Debug.Log("Starting road at " + currentPos + " to " + endPoint);
             bool goUp = true;
 
-            do
+            ObjectTiles[currentPos.x, currentPos.y] = PickTile(baseTile, detailTiles, detailChance);
+            RemoveGridPosition(currentPos);
+
+            while (currentPos != endPoint)
             {
 
-                ObjectTiles[currentPos.x, currentPos.y] = PickTile(baseTile, detailTiles, detailChance);
-                //Debug.Log("Adding road at " + currentPos);
-                RemoveGridPosition(currentPos);
-
-                if (currentPos.x != endPoint.x)
+                if (currentPos.x != endPoint.x && currentPos.y != endPoint.y)
                 {
                     if (goUp == true)
                     {
@@ -180,12 +179,21 @@ namespace DaleranGames.ElectricDreams
                         goUp = true;
                     }
                 }
+                else if (currentPos.y == endPoint.y)
+                {
+                    if (currentPos.x < endPoint.x)
+                        currentPos.x++;
+                    else
+                        currentPos.x--;
+                }
                 else
                 {
                     currentPos.y++;
                 }
 
-            } while (currentPos != endPoint);
+                ObjectTiles[currentPos.x, currentPos.y] = PickTile(baseTile, detailTiles, detailChance);
+                RemoveGridPosition(currentPos);
+            } 
         }
 
         GameObject PickTile(GameObject baseTile, GameObject[] detailTiles, float detailChance)
