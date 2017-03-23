@@ -9,25 +9,30 @@ namespace DaleranGames.RPGFramework
     {
         [Header("Stat Types")]
 
-        public StatType DefaultType;
-        public StatType ActionTime;
-        public StatType ActionTimer;
-        public StatType Armor;
-        public StatType Chance;
-        public StatType Condition;
-        public StatType CPUSpeed;
-        public StatType Damage;
-        public StatType DamageSelf;
+        public StatAsset DefaultType;
 
+        public StatAsset ActionTime;
+        public StatAsset ActionTimer;
 
-        public StatType Energy;
-        public StatType MaxEnergy;
-        public StatType EnergyRate;
+        public StatAsset Life;
+        public StatAsset MaxLife;
+        public StatAsset Armor;
+        public StatAsset MaxArmor;
 
-        public StatType Range;
-        public StatType Repair;
-        public StatType Speed;
-        public StatType StopsMovement;
+        public StatAsset Will;
+        public StatAsset MaxWill;
+        public StatAsset WillRate;
+
+        public StatAsset Damage;
+        public StatAsset AttackRange;
+
+        public StatAsset MoveSpeed;
+
+        public StatAsset Experience;
+        public StatAsset MaxExperience;
+
+        public StatAsset InventorySize;
+
 
     }
 

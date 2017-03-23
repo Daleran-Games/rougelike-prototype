@@ -28,8 +28,11 @@ namespace DaleranGames.RPGFramework
         public Action CharacterDeathEvent;
 
 
-        public Action<FloatStatChanger> FloatChangeHandler;
-        public Action<FloatStatModifier> FloatModifyHandler;
-        
+        private void Start()
+        {
+
+        }
+
+
     } 
 }

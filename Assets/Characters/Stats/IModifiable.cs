@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace DaleranGames.RPGFramework
 {
-    public interface IModifiable<T> : IStat<T> where T : struct, IComparable, IConvertible, IComparable<T>, IEquatable<T>
+    public interface IModifiable
     {
-        T BaseValue { get; }
 
-        Action<T, T> StatModified { get; set; }
+        Action<float, float> StatModified { get; set; }
 
-        void OnModifierAdded(IModifier<T> modifier);
-        void OnModifierRemoved(IModifier<T> modifier);
+        void AddModifier(Modifier mod);
+        void RemoveModifier(Modifier mod);
+        void ClearModifiers();
+
     }
 }
