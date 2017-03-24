@@ -7,18 +7,19 @@ using AdvancedInspector;
 namespace DaleranGames.RPGFramework
 {
     [AdvancedInspector]
-    public class Stat
+    [Serializable]
+    public class Stat : IDataChanged
     {
 
         public Stat()
         {
-            type = StatType.None;
+            StatType = StatType.None;
             BaseValue = 0f;
         }
 
         public Stat(StatType statType)
         {
-            type = statType;
+            StatType = statType;
             BaseValue = 0f;
         }
 
@@ -35,7 +36,8 @@ namespace DaleranGames.RPGFramework
             set { statChanged = value; }
         }
 
-        protected StatType type;
+        [SerializeField]
+        StatType type;
         [Inspect]
         public virtual StatType StatType
         {
@@ -44,27 +46,38 @@ namespace DaleranGames.RPGFramework
         }
 
 
-        [Inspect]
-        float trueValue;
+        [SerializeField]
+        float baseValue;
         [Inspect]
         public virtual float BaseValue
         {
-            get { return trueValue; }
+            get { return baseValue; }
             set
             {
                 if (StatChanged != null)
-                    StatChanged(trueValue, value);
+                    StatChanged(baseValue, value);
 
-                trueValue = value;
+                baseValue = value;
+                OnDataChangedHelper();
             }
         }
 
         [Inspect]
         public virtual float Value
         {
-            get { return trueValue; }
+            get { return baseValue; }
         }
 
+        public event GenericEventHandler OnDataChanged;
+        public void DataChanged()
+        {
+        }
+
+        public virtual void OnDataChangedHelper()
+        {
+            if (OnDataChanged != null)
+                OnDataChanged();
+        }
     }
 
 }

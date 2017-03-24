@@ -9,18 +9,12 @@ namespace DaleranGames.RPGFramework
 {
     public class Character : MonoBehaviour, INameable
     {
-        [SerializeField]
+
         private string characterName;
         public string Name
         {
-            get
-            {
-                return characterName;
-            }
-            set
-            {
-                characterName = value;
-            }
+            get { return characterName; }
+            set { characterName = value; }
         }
 
         //public ScaleFloatStat ActionTimer;

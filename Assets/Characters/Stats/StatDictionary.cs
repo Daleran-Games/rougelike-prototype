@@ -8,6 +8,7 @@ namespace DaleranGames.RPGFramework
 {
 
     [AdvancedInspector]
+    [Serializable]
     public class StatDictionary : UDictionary<StatType,Stat>
     {
 

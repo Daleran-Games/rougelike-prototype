@@ -8,6 +8,7 @@ namespace DaleranGames.RPGFramework
 {
 
     [AdvancedInspector]
+    [Serializable]
     public class Modifier
     {
 
@@ -32,6 +33,7 @@ namespace DaleranGames.RPGFramework
             Amount = amt;        
         }
 
+        [SerializeField]
         protected StatType statEffected;
         [Inspect]
         public StatType StatEffected
@@ -40,6 +42,7 @@ namespace DaleranGames.RPGFramework
             protected set { statEffected = value; }
         }
 
+        [SerializeField]
         protected Operator modOperator;
         [Inspect]
         public Operator ModOperator
@@ -48,6 +51,7 @@ namespace DaleranGames.RPGFramework
             protected set { modOperator = value; }
         }
 
+        [SerializeField]
         protected float amount;
         [Inspect]
         public float Amount

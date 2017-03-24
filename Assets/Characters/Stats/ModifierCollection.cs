@@ -8,8 +8,11 @@ namespace DaleranGames.RPGFramework
 {
 
     [AdvancedInspector]
+    [Serializable]
     public class ModifierCollection
     {
-
+        [Inspect]
+        [SerializeField]
+        List<ModifierGroup> modifierGroups = new List<ModifierGroup>();
     }
 }

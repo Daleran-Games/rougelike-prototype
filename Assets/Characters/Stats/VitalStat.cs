@@ -8,20 +8,22 @@ namespace DaleranGames.RPGFramework
 {
 
     [AdvancedInspector]
+    [Serializable]
     public class VitalStat : Stat, IModifiable
     {
 
         [Inspect]
+        [SerializeField]
         ModifiableStat maxStat = new ModifiableStat();
 
         bool minOverrideEnabled = false;
         Modifier minModifier;
 
-        public VitalStat(StatType type, float initialMaxValue) : base(type)
+        public VitalStat(StatType type, float initialMaxValue, float initialValue) : base(type)
         {
             minModifier = new Modifier(StatType, Modifier.Operator.Set, Min);
             maxStat = new ModifiableStat(type, initialMaxValue);
-            BaseValue = initialMaxValue;
+            BaseValue = initialValue;
         }
 
         public override float Value
@@ -35,15 +37,21 @@ namespace DaleranGames.RPGFramework
             set
             {
                 if (value < Min)
+                {
                     base.BaseValue = Min;
+                    StatDepleted();
+                }
+
                 else if (value > MaxValue)
+                {
                     base.BaseValue = MaxValue;
+                    StatReplenished();
+                }
                 else
                     base.BaseValue = value;
             }
         }
 
-        [Inspect]
         public virtual float BaseMaxValue
         {
             get { return maxStat.BaseValue; }
@@ -56,7 +64,6 @@ namespace DaleranGames.RPGFramework
             }
         }
 
-        [Inspect]
         public virtual float MaxValue
         {
             get { return maxStat.Value; }
@@ -79,6 +86,21 @@ namespace DaleranGames.RPGFramework
             get { return maxStat.StatModified; }
             set { maxStat.StatModified = value; }
         }
+
+        protected Action statDepleted;
+        public Action StatDepleted
+        {
+            get { return statDepleted; }
+            set { statDepleted = value; }
+        }
+
+        protected Action statReplenished;
+        public Action StatReplenished
+        {
+            get { return statReplenished; }
+            set { statReplenished = value; }
+        }
+
 
         public virtual void AddModifier(Modifier mod)
         {

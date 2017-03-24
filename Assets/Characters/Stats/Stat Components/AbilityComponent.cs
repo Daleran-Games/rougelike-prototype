@@ -7,11 +7,12 @@ using AdvancedInspector;
 namespace DaleranGames.RPGFramework
 {
     [AdvancedInspector]
-    public class MoveComponent : StatComponent
+    public class AbilityComponent : StatComponent
     {
         protected override void Awake()
         {
             base.Awake();
         }
     }
+
 }

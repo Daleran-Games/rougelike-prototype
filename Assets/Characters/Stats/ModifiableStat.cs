@@ -7,6 +7,7 @@ using AdvancedInspector;
 namespace DaleranGames.RPGFramework
 {
     [AdvancedInspector]
+    [Expandable(Expanded = true)]
     public class ModifiableStat : Stat, IModifiable
     {
 
@@ -34,6 +35,7 @@ namespace DaleranGames.RPGFramework
                     StatModified(modifiedValue, value);
 
                 modifiedValue = value;
+                OnDataChangedHelper();
             }
         }
 

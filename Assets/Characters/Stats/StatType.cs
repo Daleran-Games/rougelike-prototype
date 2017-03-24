@@ -8,12 +8,13 @@ namespace DaleranGames.RPGFramework
     {
         None = 0,
         Life = 1,
+        LifeRate = 11,
         Will = 2,
         WillRate = 3,
         Damage = 4,
         Armor = 5,
-        ActionTime =6,
-        ActionTimer = 7,
+        MoveTimer =6,
+        AbilityTimer = 7,
         MoveSpeed = 8,
         Experience = 9,
         InventorySize = 10
