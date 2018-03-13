@@ -15,7 +15,7 @@ namespace DaleranGames.World
         MapData mapData;
         Transform terrain;
         Transform objects;
-        List<Vector3> gridPositions = new List<Vector3>();
+        //List<Vector3> gridPositions = new List<Vector3>();
 
         public void SetupScene(int level)
         {
